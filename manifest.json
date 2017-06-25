@@ -1,7 +1,7 @@
 {
   "name": "Pushwoosh Notifications",
   "short_name": "Pushwoosh Notifications",
-  "gcm_sender_id": "816436966888",
+  "gcm_sender_id": "1003518040065",
   "display": "standalone",
   "gcm_user_visible_only": true
 }
