@@ -1,7 +1,7 @@
 {
   "name": "Pushwoosh Notifications",
   "short_name": "Pushwoosh Notifications",
-  "gcm_sender_id": "AAAAvhdvdeg:APA91bGEI3KukHlfbzRd_RdfyGo2JF3JUnbRaRrAqnbYykm7ntym8iteuT09eLXBtQFTa9b6PGSgPt1m5nBrK1WjNz7Kw4",
+  "gcm_sender_id": "AAAAqnUyem8:APA91bGd2KbluKxSuUJtzkr8WZhXONLXtm3a3cWtBVpCaqsQEZaeZP0MdbLXPKBOM7GVCzYsVSZ_WrtqcFMlqVQ4M3HH0a3pN0U35zRpEeq_6DbBAPjeE-G8DZftUsNAvcBlX1t4vdzU",
   "display": "standalone",
   "gcm_user_visible_only": true
 }
