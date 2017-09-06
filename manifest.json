@@ -1,7 +1,7 @@
 {
-  "name": "OneSignal Example",
-  "short_name": "OneSignalExample",
+  "name": "Example",
+  "short_name": "Example",
   "start_url": "/",
   "display": "standalone",
-  "gcm_sender_id": "819751474259"
+  "gcm_sender_id": "732110682735"
 }
