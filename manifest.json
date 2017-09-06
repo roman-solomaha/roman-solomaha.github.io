@@ -6,6 +6,6 @@
 
   "gcm_user_visible_only": true,
 
-  "OS_gcm_sender_id": "482941778795",
-  "gcm_sender_id": "732110682735",
+  "gcm_sender_id": "482941778795",
+  "PW_gcm_sender_id": "732110682735"
 }
