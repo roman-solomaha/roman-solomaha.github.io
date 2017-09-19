@@ -1,1 +1,1 @@
-importScripts('https://local.dev/service-worker.js');
+importScripts('https://roman-solomaha.github.io/service-worker.js');
