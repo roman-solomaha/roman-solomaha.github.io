@@ -1,3 +1,2337 @@
-!function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={exports:{},id:r,loaded:!1};return e[r].call(i.exports,i,i.exports,t),i.loaded=!0,i.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){"use strict";function r(e){return c(this,void 0,void 0,function(){var t;return l(this,function(n){switch(n.label){case 0:return[4,self.clients.matchAll()];case 1:return t=n.sent(),t.forEach(function(t){return t.postMessage(e)}),[2]}})})}function i(e){return c(this,void 0,void 0,function(){var t;return l(this,function(n){switch(n.label){case 0:if(!e)return[3,4];n.label=1;case 1:return n.trys.push([1,2,,4]),[2,JSON.parse(e)];case 2:return t=n.sent(),[4,d.default.write("error",t,"Error occurred during parsing custom data")];case 3:return n.sent(),[3,4];case 4:return[2,e]}})})}function s(e){return c(this,void 0,void 0,function(){var t,n,r,s,o,a,u;return l(this,function(c){switch(c.label){case 0:return[4,h.keyValue.get(f.keyInitParams)];case 1:return t=c.sent(),d.default.setLevel(t.logLevel),[4,e.data.json()];case 2:return n=c.sent(),[4,d.default.write("info",n,"onPush")];case 3:return c.sent(),r=n.p||"",s=n.buttons||[],o=n.image||"",a=p.prepareDuration(n.duration),[4,i(n.u)];case 4:return u=c.sent(),[2,{messageHash:r,payload:n,notificationPayload:{title:n.header||t.defaultNotificationTitle||f.defaultNotificationTitle,body:n.body,icon:n.i||t.defaultNotificationImage||f.defaultNotificationImage,openUrl:n.l||f.defaultNotificationUrl,messageHash:r,customData:u,duration:a,buttons:s,image:o}}]}})})}function o(e){return c(this,void 0,void 0,function(){var t,n,i,o,a,c,f;return l(this,function(l){switch(l.label){case 0:return l.trys.push([0,4,,6]),[4,s(e)];case 1:return t=l.sent(),n=t.messageHash,i=t.payload,o=t.notificationPayload,a=new g.default(o),c=b.getListeners("onPush"),[4,c.reduce(function(e,t){return e.then(function(){return t(a)})},Promise.resolve())];case 2:return l.sent(),[4,Promise.all([a.show(),n&&b.initApi().then(function(){return b.api.messageDeliveryEvent(n)}),h.message.add(u({},a._forLog(),{payload:i})),r({type:y.eventOnPushDelivery,payload:o})])];case 3:return l.sent(),[3,6];case 4:return f=l.sent(),[4,h.message.add({error:""+f,stack:f.stack,payload:e.data.text()})];case 5:return l.sent(),[3,6];case 6:return[2]}})})}function a(e){return c(this,void 0,void 0,function(){var t,n,i,s;return l(this,function(o){switch(o.label){case 0:return t=e.notification.data,n=JSON.parse(e.notification.tag),m.push(t.code),e.notification.close(),i="",e.action&&Array.isArray(t.buttons)?(s=t.buttons.find(function(t){return t.action===e.action})||{},i=s.url):i=n.url,i?[4,self.clients.openWindow(i)]:[3,2];case 1:o.sent(),o.label=2;case 2:return[4,Promise.all([b.initApi().then(function(){return b.api.pushStat(n.messageHash)}),h.keyValue.set(f.keyLastOpenMessage,{url:i,messageHash:n.messageHash,expiry:Date.now()+f.periodGoalEvent}),r({type:y.eventOnNotificationClick,payload:u({},n,{url:i})})])];case 3:return o.sent(),[2]}})})}var u=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;r>n;n++){t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e},c=this&&this.__awaiter||function(e,t,n,r){return new(n||(n=Promise))(function(i,s){function o(e){try{u(r.next(e))}catch(e){s(e)}}function a(e){try{u(r.throw(e))}catch(e){s(e)}}function u(e){e.done?i(e.value):new n(function(t){t(e.value)}).then(o,a)}u((r=r.apply(e,t||[])).next())})},l=this&&this.__generator||function(e,t){function n(e){return function(t){return r([e,t])}}function r(n){if(i)throw new TypeError("Generator is already executing.");for(;a;)try{if(i=1,s&&(o=s[2&n[0]?"return":n[0]?"throw":"next"])&&!(o=o.call(s,n[1])).done)return o;switch(s=0,o&&(n=[0,o.value]),n[0]){case 0:case 1:o=n;break;case 4:return a.label++,{value:n[1],done:!1};case 5:a.label++,s=n[1],n=[0];continue;case 7:n=a.ops.pop(),a.trys.pop();continue;default:if(o=a.trys,!(o=o.length>0&&o[o.length-1])&&(6===n[0]||2===n[0])){a=0;continue}if(3===n[0]&&(!o||n[1]>o[0]&&o[3]>n[1])){a.label=n[1];break}if(6===n[0]&&o[1]>a.label){a.label=o[1],o=n;break}if(o&&o[2]>a.label){a.label=o[2],a.ops.push(n);break}o[2]&&a.ops.pop(),a.trys.pop();continue}n=t.call(e,a)}catch(e){n=[6,e],s=0}finally{i=o=0}if(5&n[0])throw n[1];return{value:n[0]?n[1]:void 0,done:!0}}var i,s,o,a={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return{next:n(0),throw:n(1),return:n(2)}},h=n(3),f=n(2),p=n(1),d=n(5),v=n(12),g=n(13),y=n(4),b=self.Pushwoosh=new v.default,m=[];self.addEventListener("install",function(e){e.waitUntil(Promise.all([h.keyValue.set(f.keyWorkerVersion,p.getVersion()),d.default.write("info","install")]).then(function(){return self.skipWaiting()}))}),self.addEventListener("activate",function(e){console.info("activate",e),e.waitUntil(Promise.all([d.default.write("info","activate")]).then(function(){return self.clients.claim()}))}),self.addEventListener("push",function(e){e.waitUntil(o(e).catch(function(e){return console.log(e)}))}),self.addEventListener("notificationclick",function(e){e.waitUntil(a(e).catch(function(e){return console.log(e)}))}),self.addEventListener("notificationclose",function(e){var t=e.notification.data&&e.notification.data.code,n=JSON.parse(e.notification.tag);e.notification.close();var i=m.indexOf(t);0>i?r({type:y.eventOnNotificationClose,payload:n}).catch(function(e){return console.log(e)}):m.splice(i,1)})},function(e,t,n){"use strict";function r(){return Function("return this")()}function i(){return"3.0.8"}function s(){var e=r();return!!e.safari&&navigator.userAgent.indexOf("Safari")>-1}function o(){return navigator.serviceWorker&&"PushManager"in window}function a(){return s()?10:~navigator.userAgent.toLowerCase().indexOf("firefox")?12:11}function u(){var e=navigator.userAgent,t=e.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i)||[],n=null;return/trident/i.test(t[1])?(n=/\brv[ :]+(\d+)/g.exec(e)||[],"IE "+(n[1]||"")):"Chrome"===t[1]&&(n=e.match(/\bOPR\/(\d+)/),null!==n)?"Opera "+n[1]:(t=t[2]?[t[1],t[2]]:[navigator.appName,navigator.appVersion,"-?"],n=e.match(/version\/([.\d]+)/i),null!==n&&t.splice(1,1,n[1]),t.join(" "))}function c(e){for(var t="=".repeat((4-e.length%4)%4),n=(e+t).replace(/-/g,"+").replace(/_/g,"/"),r=window.atob(n),i=new Uint8Array(r.length),s=0;r.length>s;++s)i[s]=r.charCodeAt(s);return i}function l(){var e=navigator.userAgent;return e.match(/Android/i)||e.match(/webOS/i)||e.match(/iPhone/i)||e.match(/iPad/i)||e.match(/iPod/i)||e.match(/BlackBerry/i)||e.match(/Windows Phone/i)?"Phone":"PC"}function h(e){for(var t="0123456789abcdef",n="",r=0;32>r;r++){var i=e.length-r-1,s=0;0>i||(s=e.charCodeAt(i)),n+=t.substr(s%t.length,1)}return n}function f(e,t){return t=p()||t||d(),e+"_"+h(t)}function p(){return localStorage.getItem(A.keyFakePushToken)}function d(){var e=v();return localStorage.setItem(A.keyFakePushToken,e),e}function v(e){e=e||32;for(var t="",n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",r=0;e>r;r++)t+=n.charAt(Math.floor(Math.random()*n.length));return t}function g(e){return e?e.subscriptionId?e.subscriptionId:12===a()?e.endpoint:e.endpoint.split("/").pop():""}function y(e,t){var n=e&&e.getKey&&e.getKey(t);return n?btoa(String.fromCharCode.apply(String,new Uint8Array(n))):""}function b(e){return y(e,"auth")}function m(e){return y(e,"p256dh")}function w(e,t,n){var r="cp";s()||!e||~e.indexOf(".")||(r=e+".api");var i="https://"+(n||""||r+".pushwoosh.com")+"/json/1.3/";return new Promise(function(e){t&&e(i),S.keyValue.get(A.keyApiBaseUrl).then(function(t){void 0===t&&(t=null),e(t||i)}).catch(function(){e(i)})})}function P(){for(var e,t=function(){},n=["assert","clear","count","debug","dir","dirxml","error","exception","group","groupCollapsed","groupEnd","info","log","markTimeline","profile","profileEnd","table","time","timeEnd","timeStamp","trace","warn"],i=n.length,s=r(),o=s.console=s.console||{};i--;)e=n[i],o[e]||(o[e]=t)}function k(){var e=r();"Promise"in e||(e.Promise=function(){return{then:function(){},catch:function(){}}})}function O(){var e=r();"history"in e&&history.pushState?history.pushState(null,"","#"):location.hash="#"}function _(e){return isNaN(e)?20:(e=Math.round(e),Math.min(60,0>e?20:e))}var S=n(3),A=n(2);t.getGlobal=r,t.getVersion=i,t.isSafariBrowser=s,t.canUseServiceWorkers=o,t.getBrowserType=a,t.getBrowserVersion=u,t.urlB64ToUint8Array=c,t.getDeviceName=l,t.createUUID=h,t.generateHwid=f,t.getFakePushToken=p,t.generateFakePushToken=d,t.getPushToken=g,t.getAuthToken=b,t.getPublicKey=m,t.getPushwooshUrl=w,t.patchConsole=P,t.patchPromise=k,t.clearLocationHash=O,t.prepareDuration=_},function(e,t){"use strict";t.defaultServiceWorkerUrl="pushwoosh-service-worker.js",t.periodSendAppOpen=36e5,t.periodGoalEvent=864e5,t.defaultNotificationTitle="Pushwoosh notification",t.defaultNotificationImage="https://cp.pushwoosh.com/img/logo-medium.png",t.defaultNotificationUrl="/",t.keyApiParams="API_PARAMS",t.keyInitParams="INIT_PARAMS",t.keySDKVersion="SDK_VERSION",t.keyWorkerVersion="WORKER_VERSION",t.keyLastSentAppOpen="LAST_SENT_APP_OPEN",t.keyLastOpenMessage="LAST_OPEN_MESSAGE",t.keyApiBaseUrl="API_BASE_URL",t.keyFakePushToken="fakePushToken",t.keyDeviceRegistrationStatus="deviceRegistrationStatus",t.keySafariPreviousPermission="safariPreviousPermission"},function(e,t){"use strict";function n(e){console.info("onversionchange",e)}function r(){return o||(o=new Promise(function(e,t){var r=indexedDB.open("PUSHWOOSH_SDK_STORE",6);r.onsuccess=function(t){var r=t.target.result;r.onversionchange=n,e(r)},r.onerror=function(){return t(r.error)},r.onupgradeneeded=function(e){var t=e.target.result;t.onversionchange=n,t.objectStoreNames.contains(c)||t.createObjectStore(c,{keyPath:"key"});var r={keyPath:"id",autoIncrement:!0},i={unique:!1};if(!t.objectStoreNames.contains(l)){var s=t.createObjectStore(l,r);s.createIndex("environment","environment",i),s.createIndex("date","date",i),s.createIndex("type","type",i)}if(!t.objectStoreNames.contains(h)){var o=t.createObjectStore(h,r);o.createIndex("date","date",i)}}})),o}function i(e){return r().then(function(t){return new Promise(function(n,r){return e(t,n,r)})})}function s(e){return{get:function(t){return i(function(n,r,i){var s=n.transaction(e).objectStore(e).get(t);s.onsuccess=function(){var e=s.result;r(e&&e.value)},s.onerror=function(){i(s.error)}})},getAll:function(){return i(function(t,n,r){var i={},s=t.transaction(e).objectStore(e).openCursor();s.onsuccess=function(e){var t=e.target.result;t?(i[t.key]=t.value.value,t.continue()):n(i)},s.onerror=function(){r(s.error)}})},set:function(t,n){return i(function(r,i,s){var o=r.transaction([e],"readwrite").objectStore(e).put({key:t,value:n});o.onsuccess=function(){i(t)},o.onerror=function(){s(o.error)}})}}}var o,a=this&&this.__extends||function(e,t){function n(){this.constructor=e}for(var r in t)t.hasOwnProperty(r)&&(e[r]=t[r]);e.prototype=null===t?Object.create(t):(n.prototype=t.prototype,new n)},u=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;r>n;n++){t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e},c="keyValue",l="logs",h="messages",f=function(){function e(){}return e.prototype._add=function(e){var t=this;return i(function(n,r,i){var s=n.transaction([t.name],"readwrite").objectStore(t.name).add(e);s.onsuccess=function(){r(e)},s.onerror=function(){i(s.error)}}).then(function(e){return t.getAll().then(function(n){if(Array.isArray(n)){var r=n.map(function(e){return e.id}).sort(function(e,t){return e==t?0:t>e?1:-1});if(r.length>t.maxItems)return Promise.all(r.slice(t.maxItems).map(function(e){return t.delete(e)})).then(function(){return e})}return e})})},e.prototype.delete=function(e){var t=this;return i(function(n,r,i){var s=n.transaction([t.name],"readwrite").objectStore(t.name).delete(e);s.onsuccess=function(){r(s.result)},s.onerror=function(){i(s.error)}})},e.prototype.getAll=function(){var e=this;return i(function(t,n,r){var i=[],s=t.transaction(e.name).objectStore(e.name).openCursor();s.onsuccess=function(e){var t=e.target.result;t?(i.push(t.value),t.continue()):n(i)},s.onerror=function(){r(s.error)}})},e}();t.LogBase=f;var p=function(e){function t(){var t=null!==e&&e.apply(this,arguments)||this;return t.name=l,t.maxItems=100,t.environment="undefined"!=typeof self&&self.registration?"worker":"browser",t}return a(t,e),t.prototype.add=function(e,t,n){var r={type:e,environment:this.environment,message:""+t,date:new Date};return t instanceof Error&&(r.stack=t.stack),n&&(r.additional=n),this._add(r)},t}(f);t.LogLog=p;var d=function(e){function t(){var t=null!==e&&e.apply(this,arguments)||this;return t.name=h,t.maxItems=25,t}return a(t,e),t.prototype.add=function(e){return this._add(u({},e,{date:new Date}))},t}(f);t.LogMessage=d,t.keyValue=s(c),t.log=new p,t.message=new d},function(e,t,n){"use strict";var r=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;r>n;n++){t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e},i=this&&this.__awaiter||function(e,t,n,r){return new(n||(n=Promise))(function(i,s){function o(e){try{u(r.next(e))}catch(e){s(e)}}function a(e){try{u(r.throw(e))}catch(e){s(e)}}function u(e){e.done?i(e.value):new n(function(t){t(e.value)}).then(o,a)}u((r=r.apply(e,t||[])).next())})},s=this&&this.__generator||function(e,t){function n(e){return function(t){return r([e,t])}}function r(n){if(i)throw new TypeError("Generator is already executing.");for(;a;)try{if(i=1,s&&(o=s[2&n[0]?"return":n[0]?"throw":"next"])&&!(o=o.call(s,n[1])).done)return o;switch(s=0,o&&(n=[0,o.value]),n[0]){case 0:case 1:o=n;break;case 4:return a.label++,{value:n[1],done:!1};case 5:a.label++,s=n[1],n=[0];continue;case 7:n=a.ops.pop(),a.trys.pop();continue;default:if(o=a.trys,!(o=o.length>0&&o[o.length-1])&&(6===n[0]||2===n[0])){a=0;continue}if(3===n[0]&&(!o||n[1]>o[0]&&o[3]>n[1])){a.label=n[1];break}if(6===n[0]&&o[1]>a.label){a.label=o[1],o=n;break}if(o&&o[2]>a.label){a.label=o[2],a.ops.push(n);break}o[2]&&a.ops.pop(),a.trys.pop();continue}n=t.call(e,a)}catch(e){n=[6,e],s=0}finally{i=o=0}if(5&n[0])throw n[1];return{value:n[0]?n[1]:void 0,done:!0}}var i,s,o,a={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return{next:n(0),throw:n(1),return:n(2)}},o=n(7),a=n(6),u=n(1),c=n(2),l=n(5),h=n(10),f=n(9),p=n(8),d=n(3);t.eventOnReady="onReady",t.eventOnSubscribe="onSubscribe",t.eventOnUnsubscribe="onUnsubscribe",t.eventOnRegister="onRegister",t.eventOnPermissionPrompt="onPermissionPrompt",t.eventOnPermissionDenied="onPermissionDenied",t.eventOnPermissionGranted="onPermissionGranted",t.eventOnSWInitError="onSWInitError",t.eventOnPushDelivery="onPushDelivery",t.eventOnNotificationClick="onNotificationClick",t.eventOnNotificationClose="onNotificationClose",u.patchPromise();var v=function(){function e(){var e=this;this._ee=new o.default,this.isSafari=u.isSafariBrowser(),this.ready=!1,this.debug={showLog:function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){switch(t.label){case 0:return[4,d.log.getAll()];case 1:return e=t.sent(),console.log(e),[2]}})})},showKeyValues:function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){switch(t.label){case 0:return[4,d.keyValue.getAll()];case 1:return e=t.sent(),console.log(e),[2]}})})},showMessages:function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){switch(t.label){case 0:return[4,d.message.getAll()];case 1:return e=t.sent(),e.forEach(function(e){return console.log(e)}),[2]}})})}},this._onPromises=(n={},n[t.eventOnPermissionDenied]=new Promise(function(n){return e._ee.once(t.eventOnPermissionDenied,n)}),n[t.eventOnPermissionPrompt]=new Promise(function(n){return e._ee.once(t.eventOnPermissionPrompt,n)}),n[t.eventOnPermissionGranted]=new Promise(function(n){return e._ee.once(t.eventOnPermissionGranted,n)}),n);var n}return e.prototype.onReadyHandler=function(e){var n=this;this.ready?e(this.api):this._ee.on(t.eventOnReady,function(t){return e(n.api,t)})},e.prototype.push=function(e){var n=this;if("function"==typeof e)this.onReadyHandler(e);else{if(!Array.isArray(e))throw Error("invalid command");var r=e[0],i=e[1];switch(r){case"init":this.shouldInit()&&this.init(i).catch(function(e){return l.default.info("Pushwoosh init failed",e)});break;case t.eventOnReady:this.onReadyHandler(i);break;case t.eventOnRegister:case t.eventOnSubscribe:case t.eventOnUnsubscribe:case t.eventOnSWInitError:case t.eventOnPushDelivery:case t.eventOnNotificationClick:case t.eventOnNotificationClose:this._ee.on(r,function(e){return i(n.api,e)});break;case t.eventOnPermissionDenied:case t.eventOnPermissionPrompt:case t.eventOnPermissionGranted:this._onPromises[r].then(function(){return i(n.api)});break;default:throw Error("unknown command")}}},e.prototype.shouldInit=function(){return!!(this.isSafari&&"PC"===u.getDeviceName()||u.canUseServiceWorkers())||(l.default.info("This browser does not support pushes"),!1)},e.prototype.init=function(e){return i(this,void 0,void 0,function(){var n,i,o,a,p,d,v,g,y,b,m=this;return s(this,function(s){switch(s.label){case 0:if(this._initParams=e,n=e.scope,i=e.applicationCode,o=e.logLevel,a=void 0===o?"error":o,p=e.pushwooshApiUrl,!i)throw Error("no application code");return[4,u.getPushwooshUrl(i,!1,p)];case 1:if(d=s.sent(),v=this.params=r({autoSubscribe:!0,pushwooshUrl:d},e,{deviceType:u.getBrowserType(),tags:r({Language:navigator.language||"en"},e.tags,{"Device Model":u.getBrowserVersion()}),driversSettings:{worker:r({serviceWorkerUrl:c.defaultServiceWorkerUrl},e.driversSettings&&e.driversSettings.worker)}}),l.default.setLevel(a),!u.canUseServiceWorkers())return[3,7];g=v.driversSettings.worker,this.driver=new h.default({eventEmitter:this._ee,scope:n,applicationCode:i,serviceWorkerUrl:g.serviceWorkerUrl,applicationServerPublicKey:g.applicationServerPublicKey}),s.label=2;case 2:return s.trys.push([2,5,,6]),this.driver&&this.driver.initWorker?[4,this.driver.initWorker()]:[3,4];case 3:s.sent(),s.label=4;case 4:return[3,6];case 5:return y=s.sent(),l.default.write("error",y,"driver initialization failed"),[3,6];case 6:return[3,8];case 7:if(!this.isSafari||!v.safariWebsitePushID)throw Error("can't initialize safari");this.driver=new f.default({eventEmitter:this._ee,applicationCode:i,pushwooshUrl:v.pushwooshUrl,pushwooshApiUrl:v.pushwooshApiUrl,webSitePushID:v.safariWebsitePushID}),this._ee.on(t.eventOnReady,function(){var e=/#P(.*)/,t=decodeURIComponent(document.location.hash);e.test(t)&&m.api.pushStat(e.exec(t)[1]).then(u.clearLocationHash)}),s.label=8;case 8:return s.trys.push([8,10,,11]),[4,this.defaultProcess()];case 9:return s.sent(),"serviceWorker"in navigator&&(navigator.serviceWorker.onmessage=this.onServiceWorkerMessage.bind(this)),[3,11];case 10:return b=s.sent(),l.default.write("error",b,"defaultProcess fail"),[3,11];case 11:return[2]}})})},e.prototype.onServiceWorkerMessage=function(e){var t=(e||{}).data,n=void 0===t?{}:t,r=n||{},i=r.type,s=void 0===i?"":i,o=r.payload,a=void 0===o?{}:o;this._ee.emit(s,a)},e.prototype.initApi=function(){return i(this,void 0,void 0,function(){var e,t,n,i,o;return s(this,function(s){switch(s.label){case 0:return[4,this.driver.getAPIParams()];case 1:return e=s.sent(),[4,d.keyValue.get(c.keyLastOpenMessage)];case 2:return t=s.sent()||{},n=this.params,i=r({},e,{deviceType:n.deviceType,deviceModel:n.tags["Device Model"],applicationCode:n.applicationCode,language:n.tags.Language,pushwooshApiUrl:n.pushwooshApiUrl}),n.userId&&(i.userId=n.userId),o=p.default(n.applicationCode,n.pushwooshApiUrl),this.api=new a.default(o,i,t),[2]}})})},e.prototype.subscribe=function(e){return i(this,void 0,void 0,function(){var t,n,r,i;return s(this,function(s){switch(s.label){case 0:t=(e||{}).registerLess,n=void 0!==t&&t,s.label=1;case 1:return s.trys.push([1,8,,9]),[4,this.driver.isSubscribed()];case 2:return r=s.sent(),[4,this.driver.askSubscribe(n)];case 3:return s.sent(),n?[3,5]:[4,this.registerDuringSubscribe()];case 4:s.sent(),s.label=5;case 5:return r?[3,7]:[4,this.onSubscribeEmitter()];case 6:s.sent(),s.label=7;case 7:return[3,9];case 8:return i=s.sent(),l.default.write("error",i,"subscribe fail"),[3,9];case 9:return[2]}})})},e.prototype.registerDuringSubscribe=function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){switch(t.label){case 0:return[4,this.driver.isSubscribed()];case 1:return e=t.sent(),[4,this.initApi()];case 2:return t.sent(),this.isSafari?[4,this.open()]:[3,4];case 3:t.sent(),t.label=4;case 4:return[4,this.register(e)];case 5:return t.sent(),[2]}})})},e.prototype.onSubscribeEmitter=function(){return i(this,void 0,void 0,function(){var e;return s(this,function(n){switch(n.label){case 0:return[4,this.driver.isSubscribed()];case 1:return e=n.sent(),e&&this._ee.emit(t.eventOnSubscribe),[2]}})})},e.prototype.unsubscribe=function(){return i(this,void 0,void 0,function(){var e;return s(this,function(n){switch(n.label){case 0:return n.trys.push([0,3,,4]),[4,this.driver.unsubscribe()];case 1:return n.sent(),[4,this.api.unregisterDevice()];case 2:return n.sent(),this._ee.emit(t.eventOnUnsubscribe),[3,4];case 3:return e=n.sent(),l.default.write("error",e,"Error occurred during the unsubscribe"),[3,4];case 4:return[2]}})})},e.prototype.isDeviceRegistered=function(){return"registered"===localStorage.getItem(c.keyDeviceRegistrationStatus)},e.prototype.isSubscribed=function(){var e=this.isSafari||this.isDeviceRegistered();return e&&this.driver.isSubscribed()||Promise.resolve(!1)},e.prototype.register=function(e){return i(this,void 0,void 0,function(){var n,i,o,a,l,h,f,p,v,g;return s(this,function(s){switch(s.label){case 0:if(!this.api)throw Error("API is not inited");return[4,d.keyValue.getAll()];case 1:return n=s.sent(),i=c.keySDKVersion,o=n[i],a=c.keyApiParams,l=n[a],h=c.keyInitParams,f=n[h],[4,this.driver.getAPIParams()];case 2:return p=s.sent(),v=this.params,g=!(u.getVersion()===o&&JSON.stringify(l)===JSON.stringify(p)&&JSON.stringify(f)===JSON.stringify(v)),g||e?[4,Promise.all([d.keyValue.set(c.keyApiParams,p),d.keyValue.set(c.keyInitParams,v),d.keyValue.set(c.keySDKVersion,u.getVersion()),this.api.registerDevice(),this.api.setTags(r({},v.tags)),this.api.registerUser()])]:[3,4];case 3:s.sent(),this._ee.emit(t.eventOnRegister),s.label=4;case 4:return[2]}})})},e.prototype.open=function(){return i(this,void 0,void 0,function(){var e,t,n,r,i;return s(this,function(s){switch(s.label){case 0:return[4,this.driver.getAPIParams()];case 1:return e=s.sent(),t=Date.now(),[4,d.keyValue.get(c.keyLastSentAppOpen)];case 2:return n=s.sent(),r=isNaN(n)?0:+n,[4,this.needForcedOpen()];case 3:return i=s.sent(),this.isSafari&&!e.hwid?[2,Promise.resolve()]:i||t-r>c.periodSendAppOpen?[4,Promise.all([d.keyValue.set(c.keyLastSentAppOpen,t||Date.now()),this.api.applicationOpen()])]:[3,5];case 4:s.sent(),s.label=5;case 5:return[2]}})})},e.prototype.needForcedOpen=function(){return i(this,void 0,void 0,function(){var e,t,n,r;return s(this,function(i){switch(i.label){case 0:return this.isSafari?[4,d.keyValue.get(c.keySafariPreviousPermission)]:[2,Promise.resolve(!1)];case 1:return e=i.sent(),[4,this.driver.getPermission()];case 2:return t=i.sent(),n=function(e,t){return"granted"!==e&&"granted"===t},[4,d.keyValue.set(c.keySafariPreviousPermission,t)];case 3:return i.sent(),r=n(this.permissionOnInit,t)||n(e,t),[2,Promise.resolve(r)]}})})},e.prototype.defaultProcess=function(){return i(this,void 0,void 0,function(){var e,n,r,i;return s(this,function(s){switch(s.label){case 0:return e=(this.params||{}).autoSubscribe,n=void 0===e||e,r=this,[4,this.driver.getPermission()];case 1:return r.permissionOnInit=s.sent(),[4,this.initApi()];case 2:switch(s.sent(),i=this.permissionOnInit){case"denied":return[3,3];case"prompt":return[3,6];case"granted":return[3,12]}return[3,15];case 3:return this._ee.emit(t.eventOnPermissionDenied),this.isSafari||!this.isDeviceRegistered()?[3,5]:[4,this.unsubscribe()];case 4:s.sent(),s.label=5;case 5:return[3,16];case 6:return this.isSafari||!this.isDeviceRegistered()?[3,8]:[4,this.unsubscribe()];case 7:s.sent(),s.label=8;case 8:return n?[4,this.subscribe({registerLess:!0})]:[3,10];case 9:return s.sent(),[3,11];case 10:this._ee.emit(t.eventOnPermissionPrompt),s.label=11;case 11:return[3,16];case 12:return this._ee.emit(t.eventOnPermissionGranted),this.isSafari||this.isDeviceRegistered()?[3,14]:[4,this.subscribe({registerLess:!0})];case 13:s.sent(),s.label=14;case 14:return[3,16];case 15:l.default.write("error",this.permissionOnInit,"unknown permission value"),s.label=16;case 16:return[4,this.initApi()];case 17:return s.sent(),[4,this.open()];case 18:return s.sent(),[4,this.register()];case 19:return s.sent(),this._ee.emit(t.eventOnReady),this.ready=!0,[2]}})})},e.prototype.getHWID=function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){switch(t.label){case 0:return[4,this.driver.getAPIParams()];case 1:return e=t.sent().hwid,[2,Promise.resolve(e)]}})})},e.prototype.getPushToken=function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){switch(t.label){case 0:return[4,this.driver.getAPIParams()];case 1:return e=t.sent().pushToken,[2,Promise.resolve(e)]}})})},e.prototype.getUserId=function(){return i(this,void 0,void 0,function(){var e;return s(this,function(t){return e=this.params||{},[2,Promise.resolve(e.userId)]})})},e.prototype.getParams=function(){return i(this,void 0,void 0,function(){var e,t;return s(this,function(n){return e=(this.api||{}).params,t=void 0===e?{}:e,[2,Promise.resolve(t)]})})},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=v},function(e,t,n){"use strict";function r(e){var t=Error(e);throw c.write("error",t,"logAndThrowError"),t}function i(e,t){var n=Error(e);c.write("error",n,"logAndRejectError"),t(n)}var s=n(3),o=n(1),a={error:1,info:2,debug:3},u=3;o.patchConsole();var c={setLevel:function(e){a[e]||(e="error"),u=a[e]},write:function(e,t,n){return"error"===e?this.error(t):this.info(t),s.log.add(e,t,n)}};Object.keys(a).forEach(function(e){var t=a[e];c[e]=function(){for(var n=[],r=0;arguments.length>r;r++)n[r]=arguments[r];t>u||(console.info.apply(console,[e].concat(n)),console.trace("trace"))}}),t.logAndThrowError=r,t.logAndRejectError=i,Object.defineProperty(t,"__esModule",{value:!0}),t.default=c},function(e,t,n){"use strict";var r=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;r>n;n++){t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e},i=n(2),s=n(1),o=function(){function e(e,t,n){this.doPushwooshApiMethod=e,this.params=t,this.lastOpenMessage=n,this.timezone=60*-(new Date).getTimezoneOffset()}return Object.defineProperty(e.prototype,"isSafari",{get:function(){return s.isSafariBrowser()},enumerable:!0,configurable:!0}),e.prototype.callAPI=function(e,t){var n=this.params||{},i=n.hwid,s=void 0===i?"":i,o=n.applicationCode,a=void 0===o?"":o,u=n.userId,c=void 0===u?"":u;if(this.isSafari&&!s)return Promise.resolve();var l=t&&t.userId,h={application:a,hwid:s,userId:l||c||s};return this.doPushwooshApiMethod(e,r({},t,h))},e.prototype.registerDevice=function(){var e=this,t=this.params;return!t.pushToken||this.isSafari?Promise.resolve():new Promise(function(n,r){e.callAPI("registerDevice",{push_token:t.pushToken,public_key:t.publicKey,auth_token:t.authToken,language:t.language,timezone:e.timezone,device_model:t.deviceModel,device_type:t.deviceType}).then(function(){localStorage.setItem(i.keyDeviceRegistrationStatus,"registered"),n()}).catch(r)})},e.prototype.unregisterDevice=function(){var e=this;return this.isSafari?Promise.resolve():new Promise(function(t,n){e.callAPI("unregisterDevice").then(function(){localStorage.setItem(i.keyDeviceRegistrationStatus,""),t()}).catch(n)})},e.prototype.registerUser=function(e){var t={timezone:this.timezone,device_type:this.params.deviceType,userId:this.params.userId};return e&&(t.userId=e),t.userId?this.callAPI("registerUser",t):Promise.resolve()},e.prototype.applicationOpen=function(){return this.callAPI("applicationOpen",{push_token:this.params.pushToken,device_type:this.params.deviceType,timezone:this.timezone})},e.prototype.setTags=function(e){return this.callAPI("setTags",{tags:e})},e.prototype.getTags=function(){return this.callAPI("getTags")},e.prototype.pushStat=function(e){return this.callAPI("pushStat",{hash:e})},e.prototype.messageDeliveryEvent=function(e){return this.callAPI("messageDeliveryEvent",{hash:e})},e.prototype.postEvent=function(e,t){var n=this.lastOpenMessage,i=new Date,s=i.getTime(),o=Math.floor(s/1e3),a=o-i.getTimezoneOffset()/60*3600;if(n.expiry>Date.now()){if(t.msgHash)return Promise.reject("attribute msgHash already defined");t=r({},t,{msgHash:n.messageHash})}return this.callAPI("postEvent",{device_type:this.params.deviceType,event:e,attributes:t,timestampUTC:o,timestampCurrent:a})},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=o},function(e,t){"use strict";var n=function(){function e(){this._events={}}return e.prototype.emit=function(e,t){var n=this._events[e]&&this._events[e].slice();if(n&&n.length)for(var r=0;n.length>r;r++)n[r](t)},e.prototype.on=function(e,t){return this._events[e]||(this._events[e]=[]),this._events[e].push(t),this},e.prototype.once=function(e,t){var n=this,r=!1,i=function(s){if(!r)return r=!0,n.removeListener(e,i),t(s)};return this.on(e,i)},e.prototype.removeListener=function(e,t){var n=this._events[e];if(n){var r=n.indexOf(t);r>-1&&n.splice(r,1),1>n.length&&delete this._events[e]}},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=n},function(e,t,n){"use strict";function r(e,t){return function(n,r){return new Promise(function(u,c){a.getPushwooshUrl(e,!1,t).then(function(e){try{var t=""+e+n,a={request:r},l=new XMLHttpRequest;l.open("POST",t,!0),l.setRequestHeader("Content-Type","text/plain;charset=UTF-8"),l.onload=function(){if(200==l.status)try{var e=JSON.parse(l.responseText),t=(e||{}).base_url,a=void 0===t?null:t;a&&s.keyValue.set(o.keyApiBaseUrl,a),200==e.status_code?(i.default.write("apirequest",n+" call with arguments: "+JSON.stringify(r)+" to Pushwoosh has been successful. Result: "+JSON.stringify(e.response),"createDoApiXHR"),u(e.response)):(s.keyValue.set(o.keyApiBaseUrl,null),i.logAndRejectError("Error occurred during the "+n+" call to Pushwoosh: "+e.status_message,c))}catch(e){s.keyValue.set(o.keyApiBaseUrl,null),i.logAndRejectError("Error parse responce: "+e,c)}else s.keyValue.set(o.keyApiBaseUrl,null),i.logAndRejectError("Error occurred, status code: "+l.status,c)},l.onerror=function(e){i.logAndRejectError("Pushwoosh response to "+n+" call in not ok: "+e,c)},l.send(JSON.stringify(a))}catch(e){i.logAndRejectError("Exception while "+n+" the device: "+e,c)}})})}}var i=n(5),s=n(3),o=n(2),a=n(1);Object.defineProperty(t,"__esModule",{value:!0}),t.default=r},function(e,t,n){"use strict";var r=this&&this.__awaiter||function(e,t,n,r){return new(n||(n=Promise))(function(i,s){function o(e){try{u(r.next(e))}catch(e){s(e)}}function a(e){try{u(r.throw(e))}catch(e){s(e)}}function u(e){e.done?i(e.value):new n(function(t){t(e.value)}).then(o,a)}u((r=r.apply(e,t||[])).next())})},i=this&&this.__generator||function(e,t){function n(e){return function(t){return r([e,t])}}function r(n){if(i)throw new TypeError("Generator is already executing.");for(;a;)try{if(i=1,s&&(o=s[2&n[0]?"return":n[0]?"throw":"next"])&&!(o=o.call(s,n[1])).done)return o;switch(s=0,o&&(n=[0,o.value]),n[0]){case 0:case 1:o=n;break;case 4:return a.label++,{value:n[1],done:!1};case 5:a.label++,s=n[1],n=[0];continue;case 7:n=a.ops.pop(),a.trys.pop();continue;default:if(o=a.trys,!(o=o.length>0&&o[o.length-1])&&(6===n[0]||2===n[0])){a=0;continue}if(3===n[0]&&(!o||n[1]>o[0]&&o[3]>n[1])){a.label=n[1];break}if(6===n[0]&&o[1]>a.label){a.label=o[1],o=n;break}if(o&&o[2]>a.label){a.label=o[2],a.ops.push(n);break}o[2]&&a.ops.pop(),a.trys.pop();continue}n=t.call(e,a)}catch(e){n=[6,e],s=0}finally{i=o=0}if(5&n[0])throw n[1];
-return{value:n[0]?n[1]:void 0,done:!0}}var i,s,o,a={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return{next:n(0),throw:n(1),return:n(2)}},s=n(4),o=n(1),a=function(){function e(e){this.params=e}return e.prototype.getPermissionObject=function(){return safari.pushNotification.permission(this.params.webSitePushID)},e.prototype.getPermission=function(){return r(this,void 0,void 0,function(){var e;return i(this,function(t){return e=this.getPermissionObject().permission,[2,"default"===e?"prompt":e]})})},e.prototype.isSubscribed=function(){return r(this,void 0,void 0,function(){var e;return i(this,function(t){switch(t.label){case 0:return[4,this.getPermission()];case 1:return e=t.sent(),[2,"granted"===e]}})})},e.prototype.askSubscribe=function(){var e=this.params||{},t=e.eventEmitter,n=void 0===t?{emit:function(e){return e}}:t,r=e.applicationCode,i=void 0===r?"":r,a=e.webSitePushID,u=void 0===a?"":a,c=e.pushwooshApiUrl,l=void 0===c?"":c;return new Promise(function(e,t){o.getPushwooshUrl(i,!0,l).then(function(r){safari.pushNotification.requestPermission(r+"safari",u,{application:i},function(r){"granted"===r.permission?(n.emit(s.eventOnPermissionGranted),e(!0)):(n.emit(s.eventOnPermissionDenied),t(!1))})})})},e.prototype.unsubscribe=function(){return new Promise(function(e){return e(!0)})},e.prototype.getAPIParams=function(){return r(this,void 0,void 0,function(){var e,t,n,r;return i(this,function(i){return e=(this.getPermissionObject()||{}).deviceToken,t=void 0===e?"":e,n=t&&t.toLowerCase()||"",r=t&&t.toUpperCase()||"",[2,{hwid:n,pushToken:r}]})})},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=a},function(e,t,n){"use strict";var r=this&&this.__awaiter||function(e,t,n,r){return new(n||(n=Promise))(function(i,s){function o(e){try{u(r.next(e))}catch(e){s(e)}}function a(e){try{u(r.throw(e))}catch(e){s(e)}}function u(e){e.done?i(e.value):new n(function(t){t(e.value)}).then(o,a)}u((r=r.apply(e,t||[])).next())})},i=this&&this.__generator||function(e,t){function n(e){return function(t){return r([e,t])}}function r(n){if(i)throw new TypeError("Generator is already executing.");for(;a;)try{if(i=1,s&&(o=s[2&n[0]?"return":n[0]?"throw":"next"])&&!(o=o.call(s,n[1])).done)return o;switch(s=0,o&&(n=[0,o.value]),n[0]){case 0:case 1:o=n;break;case 4:return a.label++,{value:n[1],done:!1};case 5:a.label++,s=n[1],n=[0];continue;case 7:n=a.ops.pop(),a.trys.pop();continue;default:if(o=a.trys,!(o=o.length>0&&o[o.length-1])&&(6===n[0]||2===n[0])){a=0;continue}if(3===n[0]&&(!o||n[1]>o[0]&&o[3]>n[1])){a.label=n[1];break}if(6===n[0]&&o[1]>a.label){a.label=o[1],o=n;break}if(o&&o[2]>a.label){a.label=o[2],a.ops.push(n);break}o[2]&&a.ops.pop(),a.trys.pop();continue}n=t.call(e,a)}catch(e){n=[6,e],s=0}finally{i=o=0}if(5&n[0])throw n[1];return{value:n[0]?n[1]:void 0,done:!0}}var i,s,o,a={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return{next:n(0),throw:n(1),return:n(2)}},s=n(1),o=n(4),a=n(2),u=n(3),c=function(){function e(e){this.params=e}return Object.defineProperty(e.prototype,"scope",{get:function(){var e=(this.params||{}).scope,t=void 0===e?"/":e;if("string"!=typeof t)throw Error("invalid scope value");return t.length>1&&("/"!==t.substr(0,1)&&(t="/"+t),"/"!==t.substr(t.length-1)&&(t+="/")),t},enumerable:!0,configurable:!0}),e.prototype.initWorker=function(){return r(this,void 0,void 0,function(){var e,t;return i(this,function(n){switch(n.label){case 0:return e=this.scope,[4,navigator.serviceWorker.getRegistration()];case 1:return t=n.sent(),t&&null!=t.installing?[3,3]:[4,navigator.serviceWorker.register(""+e+this.params.serviceWorkerUrl+"?version="+s.getVersion(),{scope:e})];case 2:n.sent(),n.label=3;case 3:return[2]}})})},e.prototype.getPermission=function(){return r(this,void 0,void 0,function(){return i(this,function(e){return[2,"default"===Notification.permission?"prompt":Notification.permission]})})},e.prototype.isSubscribed=function(){return r(this,void 0,void 0,function(){var e,t;return i(this,function(n){switch(n.label){case 0:return[4,navigator.serviceWorker.getRegistration()];case 1:return e=n.sent(),e?[4,e.pushManager.getSubscription()]:[2,!1];case 2:return t=n.sent(),[2,!!t]}})})},e.prototype.emit=function(e){var t=(this.params||{}).eventEmitter,n=void 0===t?{emit:function(e){return e}}:t;n.emit(e)},e.prototype.askSubscribe=function(e){return r(this,void 0,void 0,function(){var t,n,r,a,u;return i(this,function(i){switch(i.label){case 0:return[4,navigator.serviceWorker.ready];case 1:return t=i.sent(),[4,t.pushManager.getSubscription()];case 2:if(n=i.sent(),r={userVisibleOnly:!0},11==s.getBrowserType()&&this.params.applicationServerPublicKey&&(r.applicationServerKey=s.urlB64ToUint8Array(this.params.applicationServerPublicKey)),n)return[3,7];i.label=3;case 3:return i.trys.push([3,5,,6]),[4,t.pushManager.subscribe(r)];case 4:return n=i.sent(),this.emit(o.eventOnPermissionGranted),[3,6];case 5:return a=i.sent(),this.emit(o.eventOnPermissionDenied),[3,6];case 6:return[3,14];case 7:return e&&n.unsubscribe?[4,n.unsubscribe()]:[3,13];case 8:i.sent(),i.label=9;case 9:return i.trys.push([9,11,,12]),[4,t.pushManager.subscribe(r)];case 10:return n=i.sent(),this.emit(o.eventOnPermissionGranted),[3,12];case 11:return u=i.sent(),this.emit(o.eventOnPermissionDenied),[3,12];case 12:return[3,14];case 13:this.emit(o.eventOnPermissionGranted),i.label=14;case 14:return[2,n]}})})},e.prototype.unsubscribe=function(){return r(this,void 0,void 0,function(){var e,t;return i(this,function(n){switch(n.label){case 0:return[4,navigator.serviceWorker.getRegistration()];case 1:return e=n.sent(),e?[4,e.pushManager.getSubscription()]:[2,Promise.resolve()];case 2:return t=n.sent(),t&&t.unsubscribe?[2,t.unsubscribe()]:[2,Promise.resolve(!1)]}})})},e.prototype.getAPIParams=function(){return r(this,void 0,void 0,function(){var e,t,n,r,c;return i(this,function(i){switch(i.label){case 0:return[4,navigator.serviceWorker.getRegistration()];case 1:return(e=i.sent())?[3,3]:(t=a.keyApiParams,[4,u.keyValue.getAll()]);case 2:if(n=i.sent()[t],n&&"/"!==this.scope)return[2,n];throw this.emit(o.eventOnSWInitError),Error("No service worker registration");case 3:return[4,navigator.serviceWorker.ready];case 4:return e=i.sent(),[4,e.pushManager.getSubscription()];case 5:return r=i.sent(),c=s.getPushToken(r),[2,{hwid:s.generateHwid(this.params.applicationCode,c),pushToken:c,publicKey:s.getPublicKey(r),authToken:s.getAuthToken(r)}]}})})},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=c},function(e,t,n){"use strict";function r(e,t){return function(n,r){return new Promise(function(o,a){s.getPushwooshUrl(e,!1,t).then(function(e){try{var t=""+e+n,s={request:r};fetch(t,{method:"post",headers:{"Content-Type":"text/plain;charset=UTF-8"},body:JSON.stringify(s)}).then(function(e){e.ok?e.json().then(function(e){200!=e.status_code?i.logAndRejectError("Error occurred during the "+n+" call to Pushwoosh: "+e.status_message,a):(i.default.write("apirequest",n+" call with arguments: "+JSON.stringify(r)+" to Pushwoosh has been successful. Result: "+JSON.stringify(e.response),"createDoApiFetch"),o(e.response))}):i.logAndRejectError(e.statusText||"response not ok",a)})}catch(e){i.logAndRejectError("Exception while "+n+" the device: "+e,a)}})})}}var i=n(5),s=n(1);Object.defineProperty(t,"__esModule",{value:!0}),t.default=r},function(e,t,n){"use strict";var r=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;r>n;n++){t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e},i=this&&this.__awaiter||function(e,t,n,r){return new(n||(n=Promise))(function(i,s){function o(e){try{u(r.next(e))}catch(e){s(e)}}function a(e){try{u(r.throw(e))}catch(e){s(e)}}function u(e){e.done?i(e.value):new n(function(t){t(e.value)}).then(o,a)}u((r=r.apply(e,t||[])).next())})},s=this&&this.__generator||function(e,t){function n(e){return function(t){return r([e,t])}}function r(n){if(i)throw new TypeError("Generator is already executing.");for(;a;)try{if(i=1,s&&(o=s[2&n[0]?"return":n[0]?"throw":"next"])&&!(o=o.call(s,n[1])).done)return o;switch(s=0,o&&(n=[0,o.value]),n[0]){case 0:case 1:o=n;break;case 4:return a.label++,{value:n[1],done:!1};case 5:a.label++,s=n[1],n=[0];continue;case 7:n=a.ops.pop(),a.trys.pop();continue;default:if(o=a.trys,!(o=o.length>0&&o[o.length-1])&&(6===n[0]||2===n[0])){a=0;continue}if(3===n[0]&&(!o||n[1]>o[0]&&o[3]>n[1])){a.label=n[1];break}if(6===n[0]&&o[1]>a.label){a.label=o[1],o=n;break}if(o&&o[2]>a.label){a.label=o[2],a.ops.push(n);break}o[2]&&a.ops.pop(),a.trys.pop();continue}n=t.call(e,a)}catch(e){n=[6,e],s=0}finally{i=o=0}if(5&n[0])throw n[1];return{value:n[0]?n[1]:void 0,done:!0}}var i,s,o,a={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return{next:n(0),throw:n(1),return:n(2)}},o=n(3),a=n(2),u=n(6),c=n(11),l=function(){function e(){this._listeners={}}return e.prototype.push=function(e){Array.isArray(e)&&"onPush"===e[0]&&"function"==typeof e[1]&&(this._listeners[e[0]]||(this._listeners[e[0]]=[]),this._listeners[e[0]].push(e[1]))},e.prototype.getListeners=function(e){return this._listeners[e]||[]},e.prototype.initApi=function(){return i(this,void 0,void 0,function(){var e,t,n,i,l,h;return s(this,function(s){switch(s.label){case 0:return[4,o.keyValue.getAll()];case 1:return e=s.sent(),t=e[a.keyInitParams],n=e[a.keyApiParams],i=e[a.keyLastOpenMessage]||{},l=r({},n,{deviceType:t.deviceType,deviceModel:t.tags["Device Model"],applicationCode:t.applicationCode,language:t.tags.Language,pushwooshApiUrl:t.pushwooshApiUrl}),t.userId&&(l.userId=t.userId),h=c.default(t.applicationCode,t.pushwooshApiUrl),this.api=new u.default(h,l,i),[2]}})})},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=l},function(e,t,n){"use strict";var r=this&&this.__assign||Object.assign||function(e){for(var t,n=1,r=arguments.length;r>n;n++){t=arguments[n];for(var i in t)Object.prototype.hasOwnProperty.call(t,i)&&(e[i]=t[i])}return e},i=this&&this.__awaiter||function(e,t,n,r){return new(n||(n=Promise))(function(i,s){function o(e){try{u(r.next(e))}catch(e){s(e)}}function a(e){try{u(r.throw(e))}catch(e){s(e)}}function u(e){e.done?i(e.value):new n(function(t){t(e.value)}).then(o,a)}u((r=r.apply(e,t||[])).next())})},s=this&&this.__generator||function(e,t){function n(e){return function(t){return r([e,t])}}function r(n){if(i)throw new TypeError("Generator is already executing.");for(;a;)try{if(i=1,s&&(o=s[2&n[0]?"return":n[0]?"throw":"next"])&&!(o=o.call(s,n[1])).done)return o;switch(s=0,o&&(n=[0,o.value]),n[0]){case 0:case 1:o=n;break;case 4:return a.label++,{value:n[1],done:!1};case 5:a.label++,s=n[1],n=[0];continue;case 7:n=a.ops.pop(),a.trys.pop();continue;default:if(o=a.trys,!(o=o.length>0&&o[o.length-1])&&(6===n[0]||2===n[0])){a=0;continue}if(3===n[0]&&(!o||n[1]>o[0]&&o[3]>n[1])){a.label=n[1];break}if(6===n[0]&&o[1]>a.label){a.label=o[1],o=n;break}if(o&&o[2]>a.label){a.label=o[2],a.ops.push(n);break}o[2]&&a.ops.pop(),a.trys.pop();continue}n=t.call(e,a)}catch(e){n=[6,e],s=0}finally{i=o=0}if(5&n[0])throw n[1];return{value:n[0]?n[1]:void 0,done:!0}}var i,s,o,a={label:0,sent:function(){if(1&o[0])throw o[1];return o[1]},trys:[],ops:[]};return{next:n(0),throw:n(1),return:n(2)}},o=n(1),a=function(){function e(e){this._canceled=!1,this._origMess=e,this._changedMess=r({},e)}return Object.defineProperty(e.prototype,"title",{get:function(){return this._changedMess.title},set:function(e){this._changedMess.title=e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"body",{get:function(){return this._changedMess.body},set:function(e){this._changedMess.body=e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"icon",{get:function(){return this._changedMess.icon},set:function(e){this._changedMess.icon=e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"openUrl",{get:function(){return this._changedMess.openUrl},set:function(e){this._changedMess.openUrl=e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"duration",{get:function(){return o.prepareDuration(this._changedMess.duration)},set:function(e){this._changedMess.duration=e},enumerable:!0,configurable:!0}),Object.defineProperty(e.prototype,"messageHash",{get:function(){return this._changedMess.messageHash},set:function(e){this._changedMess.messageHash=e},enumerable:!0,configurable:!0}),e.prototype.show=function(){return i(this,void 0,void 0,function(){var e,t,n,r,i,o=this;return s(this,function(s){switch(s.label){case 0:return this._canceled?[3,3]:(e="notificationCode-"+Date.now(),t=this._changedMess,n=t.buttons,r=t.image,n.forEach(function(e,t){e.action="action-"+t}),[4,self.registration.showNotification(this.title,{body:this.body,icon:this.icon,requireInteraction:0===this.duration||this.duration>20,tag:JSON.stringify({url:this.openUrl,messageHash:this.messageHash}),data:{code:e,buttons:n},actions:n,image:r})]);case 1:return s.sent(),[4,self.registration.getNotifications()];case 2:i=s.sent(),i.forEach(function(t){t.data&&t.data.code===e&&o.duration&&setTimeout(function(){return t.close()},1e3*o.duration)}),s.label=3;case 3:return[2]}})})},e.prototype.cancel=function(){this._canceled=!0},e.prototype._forLog=function(){return{orig:this._origMess,changed:this._changedMess,canceled:this._canceled}},e}();Object.defineProperty(t,"__esModule",{value:!0}),t.default=a}]);
-//# sourceMappingURL=pushwoosh-service-worker.js.map
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+	    return new (P || (P = Promise))(function (resolve, reject) {
+	        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+	        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+	        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+	        step((generator = generator.apply(thisArg, _arguments || [])).next());
+	    });
+	};
+	var __generator = (this && this.__generator) || function (thisArg, body) {
+	    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+	    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+	    function verb(n) { return function (v) { return step([n, v]); }; }
+	    function step(op) {
+	        if (f) throw new TypeError("Generator is already executing.");
+	        while (_) try {
+	            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+	            if (y = 0, t) op = [0, t.value];
+	            switch (op[0]) {
+	                case 0: case 1: t = op; break;
+	                case 4: _.label++; return { value: op[1], done: false };
+	                case 5: _.label++; y = op[1]; op = [0]; continue;
+	                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+	                default:
+	                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+	                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+	                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+	                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+	                    if (t[2]) _.ops.pop();
+	                    _.trys.pop(); continue;
+	            }
+	            op = body.call(thisArg, _);
+	        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+	        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+	    }
+	};
+	var storage_1 = __webpack_require__(3);
+	var constants_1 = __webpack_require__(2);
+	var functions_1 = __webpack_require__(1);
+	var logger_1 = __webpack_require__(5);
+	var global_1 = __webpack_require__(12);
+	var notification_1 = __webpack_require__(13);
+	var Pushwoosh_1 = __webpack_require__(4);
+	var Pushwoosh = self.Pushwoosh = new global_1.default();
+	function broadcastClients(msg) {
+	    return __awaiter(this, void 0, void 0, function () {
+	        var clients;
+	        return __generator(this, function (_a) {
+	            switch (_a.label) {
+	                case 0: return [4 /*yield*/, self.clients.matchAll()];
+	                case 1:
+	                    clients = _a.sent();
+	                    clients.forEach(function (client) { return client.postMessage(msg); });
+	                    return [2 /*return*/];
+	            }
+	        });
+	    });
+	}
+	function parseCustomData(customData) {
+	    return __awaiter(this, void 0, void 0, function () {
+	        var e_1;
+	        return __generator(this, function (_a) {
+	            switch (_a.label) {
+	                case 0:
+	                    if (!customData) return [3 /*break*/, 4];
+	                    _a.label = 1;
+	                case 1:
+	                    _a.trys.push([1, 2, , 4]);
+	                    return [2 /*return*/, JSON.parse(customData)];
+	                case 2:
+	                    e_1 = _a.sent();
+	                    return [4 /*yield*/, logger_1.default.write('error', e_1, 'Error occurred during parsing custom data')];
+	                case 3:
+	                    _a.sent();
+	                    return [3 /*break*/, 4];
+	                case 4: return [2 /*return*/, customData];
+	            }
+	        });
+	    });
+	}
+	function getNotificationData(event) {
+	    return __awaiter(this, void 0, void 0, function () {
+	        var initParams, payload, messageHash, buttons, image, duration, customData;
+	        return __generator(this, function (_a) {
+	            switch (_a.label) {
+	                case 0: return [4 /*yield*/, storage_1.keyValue.get(constants_1.keyInitParams)];
+	                case 1:
+	                    initParams = _a.sent();
+	                    logger_1.default.setLevel(initParams.logLevel);
+	                    return [4 /*yield*/, event.data.json()];
+	                case 2:
+	                    payload = _a.sent();
+	                    return [4 /*yield*/, logger_1.default.write('info', payload, 'onPush')];
+	                case 3:
+	                    _a.sent();
+	                    messageHash = payload.p || '';
+	                    buttons = payload.buttons || [];
+	                    image = payload.image || '';
+	                    duration = functions_1.prepareDuration(payload.duration);
+	                    return [4 /*yield*/, parseCustomData(payload.u)];
+	                case 4:
+	                    customData = _a.sent();
+	                    return [2 /*return*/, {
+	                            messageHash: messageHash,
+	                            payload: payload,
+	                            notificationPayload: {
+	                                title: payload.header || initParams.defaultNotificationTitle || constants_1.defaultNotificationTitle,
+	                                body: payload.body,
+	                                icon: payload.i || initParams.defaultNotificationImage || constants_1.defaultNotificationImage,
+	                                openUrl: payload.l || constants_1.defaultNotificationUrl,
+	                                messageHash: messageHash,
+	                                customData: customData,
+	                                duration: duration,
+	                                buttons: buttons,
+	                                image: image
+	                            }
+	                        }];
+	            }
+	        });
+	    });
+	}
+	function onPush(event) {
+	    return __awaiter(this, void 0, void 0, function () {
+	        var _a, messageHash_1, payload, notificationPayload, notification_2, callbacks, e_2;
+	        return __generator(this, function (_b) {
+	            switch (_b.label) {
+	                case 0:
+	                    _b.trys.push([0, 4, , 6]);
+	                    return [4 /*yield*/, getNotificationData(event)];
+	                case 1:
+	                    _a = _b.sent(), messageHash_1 = _a.messageHash, payload = _a.payload, notificationPayload = _a.notificationPayload;
+	                    notification_2 = new notification_1.default(notificationPayload);
+	                    callbacks = Pushwoosh.getListeners('onPush');
+	                    return [4 /*yield*/, callbacks.reduce(function (pr, fun) { return pr.then(function () { return fun(notification_2); }); }, Promise.resolve())];
+	                case 2:
+	                    _b.sent();
+	                    return [4 /*yield*/, Promise.all([
+	                            notification_2.show(),
+	                            messageHash_1 && Pushwoosh.initApi().then(function () { return Pushwoosh.api.messageDeliveryEvent(messageHash_1); }),
+	                            storage_1.message.add(__assign({}, notification_2._forLog(), { payload: payload })),
+	                            broadcastClients({ type: Pushwoosh_1.eventOnPushDelivery, payload: notificationPayload })
+	                        ])];
+	                case 3:
+	                    _b.sent();
+	                    return [3 /*break*/, 6];
+	                case 4:
+	                    e_2 = _b.sent();
+	                    return [4 /*yield*/, storage_1.message.add({
+	                            error: "" + e_2,
+	                            stack: e_2.stack,
+	                            payload: event.data.text()
+	                        })];
+	                case 5:
+	                    _b.sent();
+	                    return [3 /*break*/, 6];
+	                case 6: return [2 /*return*/];
+	            }
+	        });
+	    });
+	}
+	var clickedNotifications = [];
+	function onClick(event) {
+	    return __awaiter(this, void 0, void 0, function () {
+	        var data, tag, url, button;
+	        return __generator(this, function (_a) {
+	            switch (_a.label) {
+	                case 0:
+	                    data = event.notification.data;
+	                    tag = JSON.parse(event.notification.tag);
+	                    clickedNotifications.push(data.code);
+	                    event.notification.close();
+	                    url = '';
+	                    if (event.action && Array.isArray(data.buttons)) {
+	                        button = data.buttons.find(function (button) { return button.action === event.action; }) || {};
+	                        url = button.url;
+	                    }
+	                    else {
+	                        url = tag.url;
+	                    }
+	                    if (!url) return [3 /*break*/, 2];
+	                    return [4 /*yield*/, self.clients.openWindow(url)];
+	                case 1:
+	                    _a.sent();
+	                    _a.label = 2;
+	                case 2: return [4 /*yield*/, Promise.all([
+	                        Pushwoosh.initApi().then(function () { return Pushwoosh.api.pushStat(tag.messageHash); }),
+	                        storage_1.keyValue.set(constants_1.keyLastOpenMessage, {
+	                            url: url,
+	                            messageHash: tag.messageHash,
+	                            expiry: Date.now() + constants_1.periodGoalEvent
+	                        }),
+	                        broadcastClients({ type: Pushwoosh_1.eventOnNotificationClick, payload: __assign({}, tag, { url: url }) })
+	                    ])];
+	                case 3:
+	                    _a.sent();
+	                    return [2 /*return*/];
+	            }
+	        });
+	    });
+	}
+	self.addEventListener('install', function (event) {
+	    event.waitUntil(Promise.all([
+	        storage_1.keyValue.set(constants_1.keyWorkerVersion, functions_1.getVersion()),
+	        logger_1.default.write('info', 'install')
+	    ]).then(function () { return self.skipWaiting(); }));
+	});
+	self.addEventListener('activate', function (event) {
+	    console.info('activate', event);
+	    event.waitUntil(Promise.all([
+	        logger_1.default.write('info', 'activate')
+	    ]).then(function () { return self.clients.claim(); }));
+	});
+	self.addEventListener('push', function (event) {
+	    event.waitUntil(onPush(event).catch(function (e) { return console.log(e); }));
+	});
+	self.addEventListener('notificationclick', function (event) {
+	    event.waitUntil(onClick(event).catch(function (e) { return console.log(e); }));
+	});
+	self.addEventListener('notificationclose', function (event) {
+	    var code = event.notification.data && event.notification.data.code;
+	    var tag = JSON.parse(event.notification.tag);
+	    event.notification.close();
+	    var index = clickedNotifications.indexOf(code);
+	    if (index >= 0) {
+	        clickedNotifications.splice(index, 1);
+	    }
+	    else {
+	        broadcastClients({ type: Pushwoosh_1.eventOnNotificationClose, payload: tag }).catch(function (e) { return console.log(e); });
+	    }
+	});
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var storage_1 = __webpack_require__(3);
+	var constants_1 = __webpack_require__(2);
+	function getGlobal() {
+	    return Function('return this')();
+	}
+	exports.getGlobal = getGlobal;
+	function getVersion() {
+	    return ("3.0.8");
+	}
+	exports.getVersion = getVersion;
+	function isSafariBrowser() {
+	    var global = getGlobal();
+	    return !!global.safari && navigator.userAgent.indexOf('Safari') > -1;
+	}
+	exports.isSafariBrowser = isSafariBrowser;
+	function canUseServiceWorkers() {
+	    return navigator.serviceWorker && ('PushManager' in window);
+	}
+	exports.canUseServiceWorkers = canUseServiceWorkers;
+	function getBrowserType() {
+	    if (isSafariBrowser()) {
+	        return 10;
+	    }
+	    return ~navigator.userAgent.toLowerCase().indexOf('firefox') ? 12 : 11;
+	}
+	exports.getBrowserType = getBrowserType;
+	function getBrowserVersion() {
+	    var userAgent = navigator.userAgent;
+	    var match = userAgent.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+	    var version = null;
+	    if (/trident/i.test(match[1])) {
+	        version = /\brv[ :]+(\d+)/g.exec(userAgent) || [];
+	        return "IE " + (version[1] || '');
+	    }
+	    if (match[1] === 'Chrome') {
+	        version = userAgent.match(/\bOPR\/(\d+)/);
+	        if (version !== null) {
+	            return "Opera " + version[1];
+	        }
+	    }
+	    match = match[2] ? [match[1], match[2]] : [navigator.appName, navigator.appVersion, '-?'];
+	    version = userAgent.match(/version\/([.\d]+)/i);
+	    if (version !== null) {
+	        match.splice(1, 1, version[1]);
+	    }
+	    return match.join(' ');
+	}
+	exports.getBrowserVersion = getBrowserVersion;
+	function urlB64ToUint8Array(base64String) {
+	    var padding = '='.repeat((4 - base64String.length % 4) % 4);
+	    var base64 = (base64String + padding)
+	        .replace(/-/g, '+')
+	        .replace(/_/g, '/');
+	    var rawData = window.atob(base64);
+	    var outputArray = new Uint8Array(rawData.length);
+	    for (var i = 0; i < rawData.length; ++i) {
+	        outputArray[i] = rawData.charCodeAt(i);
+	    }
+	    return outputArray;
+	}
+	exports.urlB64ToUint8Array = urlB64ToUint8Array;
+	function getDeviceName() {
+	    var userAgent = navigator.userAgent;
+	    if (userAgent.match(/Android/i)
+	        || userAgent.match(/webOS/i)
+	        || userAgent.match(/iPhone/i)
+	        || userAgent.match(/iPad/i)
+	        || userAgent.match(/iPod/i)
+	        || userAgent.match(/BlackBerry/i)
+	        || userAgent.match(/Windows Phone/i)) {
+	        return 'Phone';
+	    }
+	    return 'PC';
+	}
+	exports.getDeviceName = getDeviceName;
+	function createUUID(pushToken) {
+	    var hexDigits = '0123456789abcdef';
+	    var s = '';
+	    for (var i = 0; i < 32; i++) {
+	        var l = pushToken.length - i - 1;
+	        var charCode = 0;
+	        if (l >= 0) {
+	            charCode = pushToken.charCodeAt(l);
+	        }
+	        s += hexDigits.substr(charCode % hexDigits.length, 1);
+	    }
+	    return s;
+	}
+	exports.createUUID = createUUID;
+	function generateHwid(applicationCode, pushToken) {
+	    pushToken = getFakePushToken() || pushToken || generateFakePushToken();
+	    return applicationCode + "_" + createUUID(pushToken);
+	}
+	exports.generateHwid = generateHwid;
+	function getFakePushToken() {
+	    return localStorage.getItem(constants_1.keyFakePushToken);
+	}
+	exports.getFakePushToken = getFakePushToken;
+	function generateFakePushToken() {
+	    var token = generateToken();
+	    localStorage.setItem(constants_1.keyFakePushToken, token);
+	    return token;
+	}
+	exports.generateFakePushToken = generateFakePushToken;
+	function generateToken(len) {
+	    len = len || 32;
+	    var text = '';
+	    var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	    for (var i = 0; i < len; i++) {
+	        text += possible.charAt(Math.floor(Math.random() * possible.length));
+	    }
+	    return text;
+	}
+	function getPushToken(pushSubscription) {
+	    if (!pushSubscription) {
+	        return '';
+	    }
+	    if (pushSubscription.subscriptionId) {
+	        return pushSubscription.subscriptionId;
+	    }
+	    if (getBrowserType() === 12) {
+	        return pushSubscription.endpoint;
+	    }
+	    return pushSubscription.endpoint.split('/').pop();
+	}
+	exports.getPushToken = getPushToken;
+	function getSubsKey(pushSubscription, key) {
+	    var rawKey = pushSubscription && pushSubscription.getKey && pushSubscription.getKey(key);
+	    return rawKey ? btoa(String.fromCharCode.apply(String, new Uint8Array(rawKey))) : '';
+	}
+	function getAuthToken(pushSubscription) {
+	    return getSubsKey(pushSubscription, 'auth');
+	}
+	exports.getAuthToken = getAuthToken;
+	function getPublicKey(pushSubscription) {
+	    return getSubsKey(pushSubscription, 'p256dh');
+	}
+	exports.getPublicKey = getPublicKey;
+	function getPushwooshUrl(applicationCode, ignoreBaseUrl, pushwooshApiUrl) {
+	    var subDomain = 'cp';
+	    if (!isSafariBrowser() && applicationCode && !~applicationCode.indexOf('.')) {
+	        subDomain = applicationCode + ".api";
+	    }
+	    var url = "https://" + (pushwooshApiUrl || ("") || subDomain + '.pushwoosh.com') + "/json/1.3/";
+	    return new Promise(function (resolve) {
+	        if (ignoreBaseUrl) {
+	            resolve(url);
+	        }
+	        storage_1.keyValue.get(constants_1.keyApiBaseUrl)
+	            .then(function (base_url) {
+	            if (base_url === void 0) { base_url = null; }
+	            resolve(base_url || url);
+	        })
+	            .catch(function () {
+	            resolve(url);
+	        });
+	    });
+	}
+	exports.getPushwooshUrl = getPushwooshUrl;
+	function patchConsole() {
+	    var method;
+	    var noop = function () { };
+	    var methods = [
+	        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+	        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+	        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+	        'timeStamp', 'trace', 'warn'
+	    ];
+	    var len = methods.length;
+	    var global = getGlobal();
+	    var console = (global.console = global.console || {});
+	    while (len--) {
+	        method = methods[len];
+	        if (!console[method]) {
+	            console[method] = noop;
+	        }
+	    }
+	}
+	exports.patchConsole = patchConsole;
+	function patchPromise() {
+	    var global = getGlobal();
+	    if (!('Promise' in global)) {
+	        global.Promise = function () { return ({
+	            then: function () { },
+	            catch: function () { }
+	        }); };
+	    }
+	}
+	exports.patchPromise = patchPromise;
+	function clearLocationHash() {
+	    var global = getGlobal();
+	    if ('history' in global && history.pushState) {
+	        history.pushState(null, '', '#');
+	    }
+	    else {
+	        location.hash = '#';
+	    }
+	}
+	exports.clearLocationHash = clearLocationHash;
+	function prepareDuration(duration) {
+	    if (isNaN(duration)) {
+	        return 20;
+	    }
+	    duration = Math.round(duration);
+	    return Math.min(60, duration < 0 ? 20 : duration);
+	}
+	exports.prepareDuration = prepareDuration;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+	exports.defaultServiceWorkerUrl = 'pushwoosh-service-worker.js';
+	exports.periodSendAppOpen = 3600000;
+	exports.periodGoalEvent = 86400000;
+	exports.defaultNotificationTitle = 'Pushwoosh notification';
+	exports.defaultNotificationImage = 'https://cp.pushwoosh.com/img/logo-medium.png';
+	exports.defaultNotificationUrl = '/';
+	exports.keyApiParams = 'API_PARAMS';
+	exports.keyInitParams = 'INIT_PARAMS';
+	exports.keySDKVersion = 'SDK_VERSION';
+	exports.keyWorkerVersion = 'WORKER_VERSION';
+	exports.keyLastSentAppOpen = 'LAST_SENT_APP_OPEN';
+	exports.keyLastOpenMessage = 'LAST_OPEN_MESSAGE';
+	exports.keyApiBaseUrl = 'API_BASE_URL';
+	exports.keyFakePushToken = 'fakePushToken';
+	exports.keyDeviceRegistrationStatus = 'deviceRegistrationStatus';
+	exports.keySafariPreviousPermission = 'safariPreviousPermission';
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var objectStoreKeyValueName = 'keyValue';
+	var objectStoreLogName = 'logs';
+	var objectStoreMessagesName = 'messages';
+	function onversionchange(event) {
+	    console.info('onversionchange', event);
+	}
+	var databasePromise;
+	function getInstance() {
+	    if (!databasePromise) {
+	        databasePromise = new Promise(function (resolve, reject) {
+	            var request = indexedDB.open('PUSHWOOSH_SDK_STORE', 6);
+	            request.onsuccess = function (event) {
+	                var database = event.target.result;
+	                database.onversionchange = onversionchange;
+	                resolve(database);
+	            };
+	            request.onerror = function () { return reject(request.error); };
+	            request.onupgradeneeded = function (event) {
+	                var database = event.target.result;
+	                database.onversionchange = onversionchange;
+	                if (!database.objectStoreNames.contains(objectStoreKeyValueName)) {
+	                    database.createObjectStore(objectStoreKeyValueName, { keyPath: 'key' });
+	                }
+	                var autoIncrementId = { keyPath: 'id', autoIncrement: true };
+	                var uniqueFalse = { unique: false };
+	                if (!database.objectStoreNames.contains(objectStoreLogName)) {
+	                    var logStore = database.createObjectStore(objectStoreLogName, autoIncrementId);
+	                    logStore.createIndex('environment', 'environment', uniqueFalse);
+	                    logStore.createIndex('date', 'date', uniqueFalse);
+	                    logStore.createIndex('type', 'type', uniqueFalse);
+	                }
+	                if (!database.objectStoreNames.contains(objectStoreMessagesName)) {
+	                    var messagesStore = database.createObjectStore(objectStoreMessagesName, autoIncrementId);
+	                    messagesStore.createIndex('date', 'date', uniqueFalse);
+	                }
+	            };
+	        });
+	    }
+	    return databasePromise;
+	}
+	function getInstanceWithPromise(executor) {
+	    return getInstance().then(function (database) { return (new Promise(function (resolve, reject) { return executor(database, resolve, reject); })); });
+	}
+	function createKeyValue(name) {
+	    return {
+	        get: function (key) {
+	            return getInstanceWithPromise(function (database, resolve, reject) {
+	                var request = database.transaction(name).objectStore(name).get(key);
+	                request.onsuccess = function () {
+	                    var result = request.result;
+	                    resolve(result && result.value);
+	                };
+	                request.onerror = function () {
+	                    reject(request.error);
+	                };
+	            });
+	        },
+	        getAll: function () {
+	            return getInstanceWithPromise(function (database, resolve, reject) {
+	                var result = {};
+	                var cursor = database.transaction(name).objectStore(name).openCursor();
+	                cursor.onsuccess = function (event) {
+	                    var cursorResult = event.target.result;
+	                    if (cursorResult) {
+	                        result[cursorResult.key] = cursorResult.value.value;
+	                        cursorResult.continue();
+	                    }
+	                    else {
+	                        resolve(result);
+	                    }
+	                };
+	                cursor.onerror = function () {
+	                    reject(cursor.error);
+	                };
+	            });
+	        },
+	        set: function (key, value) {
+	            return getInstanceWithPromise(function (database, resolve, reject) {
+	                var request = database.transaction([name], 'readwrite').objectStore(name).put({ key: key, value: value });
+	                request.onsuccess = function () {
+	                    resolve(key);
+	                };
+	                request.onerror = function () {
+	                    reject(request.error);
+	                };
+	            });
+	        }
+	    };
+	}
+	var LogBase = (function () {
+	    function LogBase() {
+	    }
+	    LogBase.prototype._add = function (obj) {
+	        var _this = this;
+	        return getInstanceWithPromise(function (database, resolve, reject) {
+	            var request = database.transaction([_this.name], 'readwrite').objectStore(_this.name).add(obj);
+	            request.onsuccess = function () {
+	                resolve(obj);
+	            };
+	            request.onerror = function () {
+	                reject(request.error);
+	            };
+	        }).then(function (obj) {
+	            return _this.getAll().then(function (items) {
+	                if (Array.isArray(items)) {
+	                    var ids = items.map(function (i) { return i.id; }).sort(function (a, b) {
+	                        if (a == b)
+	                            return 0;
+	                        return a < b ? 1 : -1;
+	                    });
+	                    if (ids.length > _this.maxItems) {
+	                        return Promise.all(ids.slice(_this.maxItems).map(function (id) { return _this.delete(id); })).then(function () { return obj; });
+	                    }
+	                }
+	                return obj;
+	            });
+	        });
+	    };
+	    LogBase.prototype.delete = function (key) {
+	        var _this = this;
+	        return getInstanceWithPromise(function (database, resolve, reject) {
+	            var request = database.transaction([_this.name], 'readwrite').objectStore(_this.name).delete(key);
+	            request.onsuccess = function () {
+	                resolve(request.result);
+	            };
+	            request.onerror = function () {
+	                reject(request.error);
+	            };
+	        });
+	    };
+	    LogBase.prototype.getAll = function () {
+	        var _this = this;
+	        return getInstanceWithPromise(function (database, resolve, reject) {
+	            var result = [];
+	            var cursor = database.transaction(_this.name).objectStore(_this.name).openCursor();
+	            cursor.onsuccess = function (ev) {
+	                var cursorResult = ev.target.result;
+	                if (cursorResult) {
+	                    result.push(cursorResult.value);
+	                    cursorResult.continue();
+	                }
+	                else {
+	                    resolve(result);
+	                }
+	            };
+	            cursor.onerror = function () {
+	                reject(cursor.error);
+	            };
+	        });
+	    };
+	    return LogBase;
+	}());
+	exports.LogBase = LogBase;
+	var LogLog = (function (_super) {
+	    __extends(LogLog, _super);
+	    function LogLog() {
+	        var _this = _super !== null && _super.apply(this, arguments) || this;
+	        _this.name = objectStoreLogName;
+	        _this.maxItems = 100;
+	        _this.environment = (typeof self !== 'undefined' && self.registration) ? 'worker' : 'browser';
+	        return _this;
+	    }
+	    LogLog.prototype.add = function (type, message, additional) {
+	        var obj = {
+	            type: type,
+	            environment: this.environment,
+	            message: "" + message,
+	            date: new Date
+	        };
+	        if (message instanceof Error) {
+	            obj.stack = message.stack;
+	        }
+	        if (additional) {
+	            obj.additional = additional;
+	        }
+	        return this._add(obj);
+	    };
+	    return LogLog;
+	}(LogBase));
+	exports.LogLog = LogLog;
+	var LogMessage = (function (_super) {
+	    __extends(LogMessage, _super);
+	    function LogMessage() {
+	        var _this = _super !== null && _super.apply(this, arguments) || this;
+	        _this.name = objectStoreMessagesName;
+	        _this.maxItems = 25;
+	        return _this;
+	    }
+	    LogMessage.prototype.add = function (log) {
+	        return this._add(__assign({}, log, { date: new Date }));
+	    };
+	    return LogMessage;
+	}(LogBase));
+	exports.LogMessage = LogMessage;
+	exports.keyValue = createKeyValue(objectStoreKeyValueName);
+	exports.log = new LogLog();
+	exports.message = new LogMessage();
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+	    return new (P || (P = Promise))(function (resolve, reject) {
+	        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+	        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+	        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+	        step((generator = generator.apply(thisArg, _arguments || [])).next());
+	    });
+	};
+	var __generator = (this && this.__generator) || function (thisArg, body) {
+	    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+	    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+	    function verb(n) { return function (v) { return step([n, v]); }; }
+	    function step(op) {
+	        if (f) throw new TypeError("Generator is already executing.");
+	        while (_) try {
+	            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+	            if (y = 0, t) op = [0, t.value];
+	            switch (op[0]) {
+	                case 0: case 1: t = op; break;
+	                case 4: _.label++; return { value: op[1], done: false };
+	                case 5: _.label++; y = op[1]; op = [0]; continue;
+	                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+	                default:
+	                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+	                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+	                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+	                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+	                    if (t[2]) _.ops.pop();
+	                    _.trys.pop(); continue;
+	            }
+	            op = body.call(thisArg, _);
+	        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+	        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+	    }
+	};
+	var EventEmitter_1 = __webpack_require__(7);
+	var API_1 = __webpack_require__(6);
+	var functions_1 = __webpack_require__(1);
+	var constants_1 = __webpack_require__(2);
+	var logger_1 = __webpack_require__(5);
+	var worker_1 = __webpack_require__(10);
+	var safari_1 = __webpack_require__(9);
+	var createDoApiXHR_1 = __webpack_require__(8);
+	var storage_1 = __webpack_require__(3);
+	exports.eventOnReady = 'onReady';
+	exports.eventOnSubscribe = 'onSubscribe';
+	exports.eventOnUnsubscribe = 'onUnsubscribe';
+	exports.eventOnRegister = 'onRegister';
+	exports.eventOnPermissionPrompt = 'onPermissionPrompt';
+	exports.eventOnPermissionDenied = 'onPermissionDenied';
+	exports.eventOnPermissionGranted = 'onPermissionGranted';
+	exports.eventOnSWInitError = 'onSWInitError';
+	exports.eventOnPushDelivery = 'onPushDelivery';
+	exports.eventOnNotificationClick = 'onNotificationClick';
+	exports.eventOnNotificationClose = 'onNotificationClose';
+	functions_1.patchPromise();
+	var Pushwoosh = (function () {
+	    function Pushwoosh() {
+	        var _this = this;
+	        this._ee = new EventEmitter_1.default();
+	        this.isSafari = functions_1.isSafariBrowser();
+	        this.ready = false;
+	        this.debug = {
+	            showLog: function () {
+	                return __awaiter(this, void 0, void 0, function () {
+	                    var items;
+	                    return __generator(this, function (_a) {
+	                        switch (_a.label) {
+	                            case 0: return [4 /*yield*/, storage_1.log.getAll()];
+	                            case 1:
+	                                items = _a.sent();
+	                                console.log(items);
+	                                return [2 /*return*/];
+	                        }
+	                    });
+	                });
+	            },
+	            showKeyValues: function () {
+	                return __awaiter(this, void 0, void 0, function () {
+	                    var items;
+	                    return __generator(this, function (_a) {
+	                        switch (_a.label) {
+	                            case 0: return [4 /*yield*/, storage_1.keyValue.getAll()];
+	                            case 1:
+	                                items = _a.sent();
+	                                console.log(items);
+	                                return [2 /*return*/];
+	                        }
+	                    });
+	                });
+	            },
+	            showMessages: function () {
+	                return __awaiter(this, void 0, void 0, function () {
+	                    var items;
+	                    return __generator(this, function (_a) {
+	                        switch (_a.label) {
+	                            case 0: return [4 /*yield*/, storage_1.message.getAll()];
+	                            case 1:
+	                                items = _a.sent();
+	                                items.forEach(function (i) { return console.log(i); });
+	                                return [2 /*return*/];
+	                        }
+	                    });
+	                });
+	            }
+	        };
+	        this._onPromises = (_a = {},
+	            _a[exports.eventOnPermissionDenied] = new Promise(function (resolve) { return _this._ee.once(exports.eventOnPermissionDenied, resolve); }),
+	            _a[exports.eventOnPermissionPrompt] = new Promise(function (resolve) { return _this._ee.once(exports.eventOnPermissionPrompt, resolve); }),
+	            _a[exports.eventOnPermissionGranted] = new Promise(function (resolve) { return _this._ee.once(exports.eventOnPermissionGranted, resolve); }),
+	            _a);
+	        var _a;
+	    }
+	    Pushwoosh.prototype.onReadyHandler = function (cmd) {
+	        var _this = this;
+	        if (this.ready) {
+	            cmd(this.api);
+	        }
+	        else {
+	            this._ee.on(exports.eventOnReady, function (params) { return cmd(_this.api, params); });
+	        }
+	    };
+	    Pushwoosh.prototype.push = function (cmd) {
+	        var _this = this;
+	        if (typeof cmd === 'function') {
+	            this.onReadyHandler(cmd);
+	        }
+	        else if (Array.isArray(cmd)) {
+	            var cmdName = cmd[0], cmdFunc_1 = cmd[1];
+	            switch (cmdName) {
+	                case 'init':
+	                    if (this.shouldInit()) {
+	                        this.init(cmdFunc_1)
+	                            .catch(function (e) { return logger_1.default.info('Pushwoosh init failed', e); });
+	                    }
+	                    break;
+	                case exports.eventOnReady:
+	                    this.onReadyHandler(cmdFunc_1);
+	                    break;
+	                case exports.eventOnRegister:
+	                case exports.eventOnSubscribe:
+	                case exports.eventOnUnsubscribe:
+	                case exports.eventOnSWInitError:
+	                case exports.eventOnPushDelivery:
+	                case exports.eventOnNotificationClick:
+	                case exports.eventOnNotificationClose:
+	                    this._ee.on(cmdName, function (params) { return cmdFunc_1(_this.api, params); });
+	                    break;
+	                case exports.eventOnPermissionDenied:
+	                case exports.eventOnPermissionPrompt:
+	                case exports.eventOnPermissionGranted:
+	                    this._onPromises[cmdName].then(function () { return cmdFunc_1(_this.api); });
+	                    break;
+	                default:
+	                    throw new Error('unknown command');
+	            }
+	        }
+	        else {
+	            throw new Error('invalid command');
+	        }
+	    };
+	    Pushwoosh.prototype.shouldInit = function () {
+	        if (!((this.isSafari && functions_1.getDeviceName() === 'PC') || functions_1.canUseServiceWorkers())) {
+	            logger_1.default.info('This browser does not support pushes');
+	            return false;
+	        }
+	        return true;
+	    };
+	    Pushwoosh.prototype.init = function (initParams) {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _this = this;
+	            var scope, applicationCode, _a, logLevel, pushwooshApiUrl, pushwooshUrl, params, worker, error_1, err_1;
+	            return __generator(this, function (_b) {
+	                switch (_b.label) {
+	                    case 0:
+	                        this._initParams = initParams;
+	                        scope = initParams.scope, applicationCode = initParams.applicationCode, _a = initParams.logLevel, logLevel = _a === void 0 ? 'error' : _a, pushwooshApiUrl = initParams.pushwooshApiUrl;
+	                        if (!applicationCode) {
+	                            throw new Error('no application code');
+	                        }
+	                        return [4 /*yield*/, functions_1.getPushwooshUrl(applicationCode, false, pushwooshApiUrl)];
+	                    case 1:
+	                        pushwooshUrl = _b.sent();
+	                        params = this.params = __assign({ autoSubscribe: true, pushwooshUrl: pushwooshUrl }, initParams, { deviceType: functions_1.getBrowserType(), tags: __assign({ Language: navigator.language || 'en' }, initParams.tags, { 'Device Model': functions_1.getBrowserVersion() }), driversSettings: {
+	                                worker: __assign({ serviceWorkerUrl: constants_1.defaultServiceWorkerUrl }, (initParams.driversSettings && initParams.driversSettings.worker))
+	                            } });
+	                        logger_1.default.setLevel(logLevel);
+	                        if (!functions_1.canUseServiceWorkers()) return [3 /*break*/, 7];
+	                        worker = params.driversSettings.worker;
+	                        this.driver = new worker_1.default({
+	                            eventEmitter: this._ee,
+	                            scope: scope,
+	                            applicationCode: applicationCode,
+	                            serviceWorkerUrl: worker.serviceWorkerUrl,
+	                            applicationServerPublicKey: worker.applicationServerPublicKey,
+	                        });
+	                        _b.label = 2;
+	                    case 2:
+	                        _b.trys.push([2, 5, , 6]);
+	                        if (!(this.driver && this.driver.initWorker)) return [3 /*break*/, 4];
+	                        return [4 /*yield*/, this.driver.initWorker()];
+	                    case 3:
+	                        _b.sent();
+	                        _b.label = 4;
+	                    case 4: return [3 /*break*/, 6];
+	                    case 5:
+	                        error_1 = _b.sent();
+	                        logger_1.default.write('error', error_1, 'driver initialization failed');
+	                        return [3 /*break*/, 6];
+	                    case 6: return [3 /*break*/, 8];
+	                    case 7:
+	                        if (this.isSafari && params.safariWebsitePushID) {
+	                            this.driver = new safari_1.default({
+	                                eventEmitter: this._ee,
+	                                applicationCode: applicationCode,
+	                                pushwooshUrl: params.pushwooshUrl,
+	                                pushwooshApiUrl: params.pushwooshApiUrl,
+	                                webSitePushID: params.safariWebsitePushID,
+	                            });
+	                            this._ee.on(exports.eventOnReady, function () {
+	                                var hashReg = /#P(.*)/;
+	                                var hash = decodeURIComponent(document.location.hash);
+	                                if (hashReg.test(hash)) {
+	                                    _this.api
+	                                        .pushStat(hashReg.exec(hash)[1])
+	                                        .then(functions_1.clearLocationHash);
+	                                }
+	                            });
+	                        }
+	                        else {
+	                            throw new Error('can\'t initialize safari');
+	                        }
+	                        _b.label = 8;
+	                    case 8:
+	                        _b.trys.push([8, 10, , 11]);
+	                        return [4 /*yield*/, this.defaultProcess()];
+	                    case 9:
+	                        _b.sent();
+	                        if ('serviceWorker' in navigator) {
+	                            navigator.serviceWorker.onmessage = this.onServiceWorkerMessage.bind(this);
+	                        }
+	                        return [3 /*break*/, 11];
+	                    case 10:
+	                        err_1 = _b.sent();
+	                        logger_1.default.write('error', err_1, 'defaultProcess fail');
+	                        return [3 /*break*/, 11];
+	                    case 11: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.onServiceWorkerMessage = function (e) {
+	        var _a = (e || {}).data, data = _a === void 0 ? {} : _a;
+	        var _b = data || {}, _c = _b.type, type = _c === void 0 ? '' : _c, _d = _b.payload, payload = _d === void 0 ? {} : _d;
+	        this._ee.emit(type, payload);
+	    };
+	    Pushwoosh.prototype.initApi = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var driverApiParams, lastOpenMessage, params, apiParams, func;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.driver.getAPIParams()];
+	                    case 1:
+	                        driverApiParams = _a.sent();
+	                        return [4 /*yield*/, storage_1.keyValue.get(constants_1.keyLastOpenMessage)];
+	                    case 2:
+	                        lastOpenMessage = (_a.sent()) || {};
+	                        params = this.params;
+	                        apiParams = __assign({}, driverApiParams, { deviceType: params.deviceType, deviceModel: params.tags['Device Model'], applicationCode: params.applicationCode, language: params.tags.Language, pushwooshApiUrl: params.pushwooshApiUrl });
+	                        if (params.userId) {
+	                            apiParams.userId = params.userId;
+	                        }
+	                        func = createDoApiXHR_1.default(params.applicationCode, params.pushwooshApiUrl);
+	                        this.api = new API_1.default(func, apiParams, lastOpenMessage);
+	                        return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.subscribe = function (params) {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _a, registerLess, subscribed, error_2;
+	            return __generator(this, function (_b) {
+	                switch (_b.label) {
+	                    case 0:
+	                        _a = (params || {}).registerLess, registerLess = _a === void 0 ? false : _a;
+	                        _b.label = 1;
+	                    case 1:
+	                        _b.trys.push([1, 8, , 9]);
+	                        return [4 /*yield*/, this.driver.isSubscribed()];
+	                    case 2:
+	                        subscribed = _b.sent();
+	                        return [4 /*yield*/, this.driver.askSubscribe(registerLess)];
+	                    case 3:
+	                        _b.sent();
+	                        if (!!registerLess) return [3 /*break*/, 5];
+	                        return [4 /*yield*/, this.registerDuringSubscribe()];
+	                    case 4:
+	                        _b.sent();
+	                        _b.label = 5;
+	                    case 5:
+	                        if (!!subscribed) return [3 /*break*/, 7];
+	                        return [4 /*yield*/, this.onSubscribeEmitter()];
+	                    case 6:
+	                        _b.sent();
+	                        _b.label = 7;
+	                    case 7: return [3 /*break*/, 9];
+	                    case 8:
+	                        error_2 = _b.sent();
+	                        logger_1.default.write('error', error_2, 'subscribe fail');
+	                        return [3 /*break*/, 9];
+	                    case 9: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.registerDuringSubscribe = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var subscribed;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.driver.isSubscribed()];
+	                    case 1:
+	                        subscribed = _a.sent();
+	                        return [4 /*yield*/, this.initApi()];
+	                    case 2:
+	                        _a.sent();
+	                        if (!this.isSafari) return [3 /*break*/, 4];
+	                        return [4 /*yield*/, this.open()];
+	                    case 3:
+	                        _a.sent();
+	                        _a.label = 4;
+	                    case 4: return [4 /*yield*/, this.register(subscribed)];
+	                    case 5:
+	                        _a.sent();
+	                        return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.onSubscribeEmitter = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var subscribed;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.driver.isSubscribed()];
+	                    case 1:
+	                        subscribed = _a.sent();
+	                        if (subscribed) {
+	                            this._ee.emit(exports.eventOnSubscribe);
+	                        }
+	                        return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.unsubscribe = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var e_1;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0:
+	                        _a.trys.push([0, 3, , 4]);
+	                        return [4 /*yield*/, this.driver.unsubscribe()];
+	                    case 1:
+	                        _a.sent();
+	                        return [4 /*yield*/, this.api.unregisterDevice()];
+	                    case 2:
+	                        _a.sent();
+	                        this._ee.emit(exports.eventOnUnsubscribe);
+	                        return [3 /*break*/, 4];
+	                    case 3:
+	                        e_1 = _a.sent();
+	                        logger_1.default.write('error', e_1, 'Error occurred during the unsubscribe');
+	                        return [3 /*break*/, 4];
+	                    case 4: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.isDeviceRegistered = function () {
+	        return localStorage.getItem(constants_1.keyDeviceRegistrationStatus) === 'registered';
+	    };
+	    Pushwoosh.prototype.isSubscribed = function () {
+	        var deviceRegistration = this.isSafari || this.isDeviceRegistered();
+	        return deviceRegistration && this.driver.isSubscribed() || Promise.resolve(false);
+	    };
+	    Pushwoosh.prototype.register = function (forceRequests) {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _a, _b, savedSDKVersion, _c, savedApiParams, _d, savedInitParams, apiParams, params, shouldRegister;
+	            return __generator(this, function (_e) {
+	                switch (_e.label) {
+	                    case 0:
+	                        if (!this.api) {
+	                            throw new Error('API is not inited');
+	                        }
+	                        return [4 /*yield*/, storage_1.keyValue.getAll()];
+	                    case 1:
+	                        _a = _e.sent(), _b = constants_1.keySDKVersion, savedSDKVersion = _a[_b], _c = constants_1.keyApiParams, savedApiParams = _a[_c], _d = constants_1.keyInitParams, savedInitParams = _a[_d];
+	                        return [4 /*yield*/, this.driver.getAPIParams()];
+	                    case 2:
+	                        apiParams = _e.sent();
+	                        params = this.params;
+	                        shouldRegister = !(functions_1.getVersion() === savedSDKVersion &&
+	                            JSON.stringify(savedApiParams) === JSON.stringify(apiParams) &&
+	                            JSON.stringify(savedInitParams) === JSON.stringify(params));
+	                        if (!(shouldRegister || forceRequests)) return [3 /*break*/, 4];
+	                        return [4 /*yield*/, Promise.all([
+	                                storage_1.keyValue.set(constants_1.keyApiParams, apiParams),
+	                                storage_1.keyValue.set(constants_1.keyInitParams, params),
+	                                storage_1.keyValue.set(constants_1.keySDKVersion, functions_1.getVersion()),
+	                                this.api.registerDevice(),
+	                                this.api.setTags(__assign({}, params.tags)),
+	                                this.api.registerUser()
+	                            ])];
+	                    case 3:
+	                        _e.sent();
+	                        this._ee.emit(exports.eventOnRegister);
+	                        _e.label = 4;
+	                    case 4: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.open = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var apiParams, curTime, val, lastSentTime, force;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.driver.getAPIParams()];
+	                    case 1:
+	                        apiParams = _a.sent();
+	                        curTime = Date.now();
+	                        return [4 /*yield*/, storage_1.keyValue.get(constants_1.keyLastSentAppOpen)];
+	                    case 2:
+	                        val = _a.sent();
+	                        lastSentTime = isNaN(val) ? 0 : Number(val);
+	                        return [4 /*yield*/, this.needForcedOpen()];
+	                    case 3:
+	                        force = _a.sent();
+	                        if (this.isSafari && !apiParams.hwid) {
+	                            return [2 /*return*/, Promise.resolve()];
+	                        }
+	                        if (!(force || (curTime - lastSentTime) > constants_1.periodSendAppOpen)) return [3 /*break*/, 5];
+	                        return [4 /*yield*/, Promise.all([
+	                                storage_1.keyValue.set(constants_1.keyLastSentAppOpen, curTime || Date.now()),
+	                                this.api.applicationOpen()
+	                            ])];
+	                    case 4:
+	                        _a.sent();
+	                        _a.label = 5;
+	                    case 5: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.needForcedOpen = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var previousPermission, currentPermission, compare, result;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0:
+	                        if (!this.isSafari) {
+	                            return [2 /*return*/, Promise.resolve(false)];
+	                        }
+	                        return [4 /*yield*/, storage_1.keyValue.get(constants_1.keySafariPreviousPermission)];
+	                    case 1:
+	                        previousPermission = _a.sent();
+	                        return [4 /*yield*/, this.driver.getPermission()];
+	                    case 2:
+	                        currentPermission = _a.sent();
+	                        compare = function (prev, curr) { return prev !== 'granted' && curr === 'granted'; };
+	                        return [4 /*yield*/, storage_1.keyValue.set(constants_1.keySafariPreviousPermission, currentPermission)];
+	                    case 3:
+	                        _a.sent();
+	                        result = compare(this.permissionOnInit, currentPermission) || compare(previousPermission, currentPermission);
+	                        return [2 /*return*/, Promise.resolve(result)];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.defaultProcess = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _a, autoSubscribe, _b, _c;
+	            return __generator(this, function (_d) {
+	                switch (_d.label) {
+	                    case 0:
+	                        _a = (this.params || {}).autoSubscribe, autoSubscribe = _a === void 0 ? true : _a;
+	                        _b = this;
+	                        return [4 /*yield*/, this.driver.getPermission()];
+	                    case 1:
+	                        _b.permissionOnInit = _d.sent();
+	                        return [4 /*yield*/, this.initApi()];
+	                    case 2:
+	                        _d.sent();
+	                        _c = this.permissionOnInit;
+	                        switch (_c) {
+	                            case 'denied': return [3 /*break*/, 3];
+	                            case 'prompt': return [3 /*break*/, 6];
+	                            case 'granted': return [3 /*break*/, 12];
+	                        }
+	                        return [3 /*break*/, 15];
+	                    case 3:
+	                        this._ee.emit(exports.eventOnPermissionDenied);
+	                        if (!(!this.isSafari && this.isDeviceRegistered())) return [3 /*break*/, 5];
+	                        return [4 /*yield*/, this.unsubscribe()];
+	                    case 4:
+	                        _d.sent();
+	                        _d.label = 5;
+	                    case 5: return [3 /*break*/, 16];
+	                    case 6:
+	                        if (!(!this.isSafari && this.isDeviceRegistered())) return [3 /*break*/, 8];
+	                        return [4 /*yield*/, this.unsubscribe()];
+	                    case 7:
+	                        _d.sent();
+	                        _d.label = 8;
+	                    case 8:
+	                        if (!autoSubscribe) return [3 /*break*/, 10];
+	                        return [4 /*yield*/, this.subscribe({ registerLess: true })];
+	                    case 9:
+	                        _d.sent();
+	                        return [3 /*break*/, 11];
+	                    case 10:
+	                        this._ee.emit(exports.eventOnPermissionPrompt);
+	                        _d.label = 11;
+	                    case 11: return [3 /*break*/, 16];
+	                    case 12:
+	                        this._ee.emit(exports.eventOnPermissionGranted);
+	                        if (!(!this.isSafari && !this.isDeviceRegistered())) return [3 /*break*/, 14];
+	                        return [4 /*yield*/, this.subscribe({ registerLess: true })];
+	                    case 13:
+	                        _d.sent();
+	                        _d.label = 14;
+	                    case 14: return [3 /*break*/, 16];
+	                    case 15:
+	                        logger_1.default.write('error', this.permissionOnInit, 'unknown permission value');
+	                        _d.label = 16;
+	                    case 16: return [4 /*yield*/, this.initApi()];
+	                    case 17:
+	                        _d.sent();
+	                        return [4 /*yield*/, this.open()];
+	                    case 18:
+	                        _d.sent();
+	                        return [4 /*yield*/, this.register()];
+	                    case 19:
+	                        _d.sent();
+	                        this._ee.emit(exports.eventOnReady);
+	                        this.ready = true;
+	                        return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.getHWID = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var hwid;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.driver.getAPIParams()];
+	                    case 1:
+	                        hwid = (_a.sent()).hwid;
+	                        return [2 /*return*/, Promise.resolve(hwid)];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.getPushToken = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var pushToken;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.driver.getAPIParams()];
+	                    case 1:
+	                        pushToken = (_a.sent()).pushToken;
+	                        return [2 /*return*/, Promise.resolve(pushToken)];
+	                }
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.getUserId = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var params;
+	            return __generator(this, function (_a) {
+	                params = this.params || {};
+	                return [2 /*return*/, Promise.resolve(params.userId)];
+	            });
+	        });
+	    };
+	    Pushwoosh.prototype.getParams = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _a, params;
+	            return __generator(this, function (_b) {
+	                _a = (this.api || {}).params, params = _a === void 0 ? {} : _a;
+	                return [2 /*return*/, Promise.resolve(params)];
+	            });
+	        });
+	    };
+	    return Pushwoosh;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Pushwoosh;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var storage_1 = __webpack_require__(3);
+	var functions_1 = __webpack_require__(1);
+	var levels = {
+	    error: 1,
+	    info: 2,
+	    debug: 3
+	};
+	var numLevel = 3;
+	functions_1.patchConsole();
+	var Logger = {
+	    setLevel: function (level) {
+	        if (!levels[level]) {
+	            level = 'error';
+	        }
+	        numLevel = levels[level];
+	    },
+	    write: function (type, message, additional) {
+	        if (type === 'error') {
+	            this.error(message);
+	        }
+	        else {
+	            this.info(message);
+	        }
+	        return storage_1.log.add(type, message, additional);
+	    }
+	};
+	Object.keys(levels).forEach(function (k) {
+	    var n = levels[k];
+	    Logger[k] = function () {
+	        var args = [];
+	        for (var _i = 0; _i < arguments.length; _i++) {
+	            args[_i] = arguments[_i];
+	        }
+	        if (n <= numLevel) {
+	            console.info.apply(console, [k].concat(args));
+	            console.trace('trace');
+	        }
+	    };
+	});
+	function logAndThrowError(error) {
+	    var logText = new Error(error);
+	    Logger.write('error', logText, 'logAndThrowError');
+	    throw logText;
+	}
+	exports.logAndThrowError = logAndThrowError;
+	function logAndRejectError(error, reject) {
+	    var logText = new Error(error);
+	    Logger.write('error', logText, 'logAndRejectError');
+	    reject(logText);
+	}
+	exports.logAndRejectError = logAndRejectError;
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = Logger;
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var constants_1 = __webpack_require__(2);
+	var functions_1 = __webpack_require__(1);
+	var PushwooshAPI = (function () {
+	    function PushwooshAPI(doPushwooshApiMethod, params, lastOpenMessage) {
+	        this.doPushwooshApiMethod = doPushwooshApiMethod;
+	        this.params = params;
+	        this.lastOpenMessage = lastOpenMessage;
+	        this.timezone = -(new Date).getTimezoneOffset() * 60;
+	    }
+	    Object.defineProperty(PushwooshAPI.prototype, "isSafari", {
+	        get: function () {
+	            return functions_1.isSafariBrowser();
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    PushwooshAPI.prototype.callAPI = function (methodName, methodParams) {
+	        var _a = this.params || {}, _b = _a.hwid, hwid = _b === void 0 ? '' : _b, _c = _a.applicationCode, applicationCode = _c === void 0 ? '' : _c, _d = _a.userId, userId = _d === void 0 ? '' : _d;
+	        if (this.isSafari && !hwid) {
+	            return Promise.resolve();
+	        }
+	        var customUserId = methodParams && methodParams.userId;
+	        var mustBeParams = {
+	            application: applicationCode,
+	            hwid: hwid,
+	            userId: customUserId || userId || hwid
+	        };
+	        return this.doPushwooshApiMethod(methodName, __assign({}, methodParams, mustBeParams));
+	    };
+	    PushwooshAPI.prototype.registerDevice = function () {
+	        var _this = this;
+	        var params = this.params;
+	        if (!params.pushToken || this.isSafari) {
+	            return Promise.resolve();
+	        }
+	        return new Promise(function (resolve, reject) {
+	            _this.callAPI('registerDevice', {
+	                push_token: params.pushToken,
+	                public_key: params.publicKey,
+	                auth_token: params.authToken,
+	                language: params.language,
+	                timezone: _this.timezone,
+	                device_model: params.deviceModel,
+	                device_type: params.deviceType,
+	            })
+	                .then(function () {
+	                localStorage.setItem(constants_1.keyDeviceRegistrationStatus, 'registered');
+	                resolve();
+	            })
+	                .catch(reject);
+	        });
+	    };
+	    PushwooshAPI.prototype.unregisterDevice = function () {
+	        var _this = this;
+	        if (this.isSafari) {
+	            return Promise.resolve();
+	        }
+	        return new Promise(function (resolve, reject) {
+	            _this.callAPI('unregisterDevice')
+	                .then(function () {
+	                localStorage.setItem(constants_1.keyDeviceRegistrationStatus, '');
+	                resolve();
+	            })
+	                .catch(reject);
+	        });
+	    };
+	    PushwooshAPI.prototype.registerUser = function (userId) {
+	        var params = {
+	            timezone: this.timezone,
+	            device_type: this.params.deviceType,
+	            userId: this.params.userId,
+	        };
+	        if (userId) {
+	            params.userId = userId;
+	        }
+	        if (!params.userId) {
+	            return Promise.resolve();
+	        }
+	        return this.callAPI('registerUser', params);
+	    };
+	    PushwooshAPI.prototype.applicationOpen = function () {
+	        return this.callAPI('applicationOpen', {
+	            push_token: this.params.pushToken,
+	            device_type: this.params.deviceType,
+	            timezone: this.timezone,
+	        });
+	    };
+	    PushwooshAPI.prototype.setTags = function (tags) {
+	        return this.callAPI('setTags', { tags: tags });
+	    };
+	    PushwooshAPI.prototype.getTags = function () {
+	        return this.callAPI('getTags');
+	    };
+	    PushwooshAPI.prototype.pushStat = function (hash) {
+	        return this.callAPI('pushStat', { hash: hash });
+	    };
+	    PushwooshAPI.prototype.messageDeliveryEvent = function (hash) {
+	        return this.callAPI('messageDeliveryEvent', { hash: hash });
+	    };
+	    PushwooshAPI.prototype.postEvent = function (event, attributes) {
+	        var lastOpenMessage = this.lastOpenMessage;
+	        var date = new Date();
+	        var time = date.getTime();
+	        var timestampUTC = Math.floor(time / 1000);
+	        var timestampCurrent = timestampUTC - (date.getTimezoneOffset() / 60 * 3600);
+	        if (lastOpenMessage.expiry > Date.now()) {
+	            if (attributes['msgHash']) {
+	                return Promise.reject('attribute msgHash already defined');
+	            }
+	            attributes = __assign({}, attributes, { msgHash: lastOpenMessage.messageHash });
+	        }
+	        return this.callAPI('postEvent', {
+	            device_type: this.params.deviceType,
+	            event: event,
+	            attributes: attributes,
+	            timestampUTC: timestampUTC,
+	            timestampCurrent: timestampCurrent
+	        });
+	    };
+	    return PushwooshAPI;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = PushwooshAPI;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+	var EventEmitter = (function () {
+	    function EventEmitter() {
+	        this._events = {};
+	    }
+	    EventEmitter.prototype.emit = function (evt, param) {
+	        var events = this._events[evt] && this._events[evt].slice();
+	        if (events && events.length) {
+	            for (var i = 0; i < events.length; i++) {
+	                events[i](param);
+	            }
+	        }
+	    };
+	    EventEmitter.prototype.on = function (evt, fn) {
+	        if (!this._events[evt]) {
+	            this._events[evt] = [];
+	        }
+	        this._events[evt].push(fn);
+	        return this;
+	    };
+	    EventEmitter.prototype.once = function (evt, fn) {
+	        var _this = this;
+	        var used = false;
+	        var oncefun = function (param) {
+	            if (!used) {
+	                used = true;
+	                _this.removeListener(evt, oncefun);
+	                return fn(param);
+	            }
+	        };
+	        return this.on(evt, oncefun);
+	    };
+	    EventEmitter.prototype.removeListener = function (evt, listener) {
+	        var events = this._events[evt];
+	        if (events) {
+	            var idx = events.indexOf(listener);
+	            if (idx > -1) {
+	                events.splice(idx, 1);
+	            }
+	            if (events.length < 1) {
+	                delete this._events[evt];
+	            }
+	        }
+	    };
+	    return EventEmitter;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = EventEmitter;
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var logger_1 = __webpack_require__(5);
+	var storage_1 = __webpack_require__(3);
+	var constants_1 = __webpack_require__(2);
+	var functions_1 = __webpack_require__(1);
+	function createDoApiXHR(applicationCode, pushwooshApiUrl) {
+	    return function doApiXHR(methodName, request) {
+	        return new Promise(function (resolve, reject) {
+	            functions_1.getPushwooshUrl(applicationCode, false, pushwooshApiUrl).then(function (pushwooshUrl) {
+	                try {
+	                    var url = "" + pushwooshUrl + methodName;
+	                    var params = { request: request };
+	                    var xhr_1 = new XMLHttpRequest();
+	                    xhr_1.open('POST', url, true);
+	                    xhr_1.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+	                    xhr_1.onload = function xhrOnLoad() {
+	                        if (xhr_1.status == 200) {
+	                            try {
+	                                var response = JSON.parse(xhr_1.responseText);
+	                                var _a = (response || {}).base_url, base_url = _a === void 0 ? null : _a;
+	                                if (base_url) {
+	                                    storage_1.keyValue.set(constants_1.keyApiBaseUrl, base_url);
+	                                }
+	                                if (response.status_code == 200) {
+	                                    logger_1.default.write('apirequest', methodName + " call with arguments: " + JSON.stringify(request) + " to Pushwoosh has been successful. Result: " + JSON.stringify(response.response), 'createDoApiXHR');
+	                                    resolve(response.response);
+	                                }
+	                                else {
+	                                    storage_1.keyValue.set(constants_1.keyApiBaseUrl, null);
+	                                    logger_1.logAndRejectError("Error occurred during the " + methodName + " call to Pushwoosh: " + response.status_message, reject);
+	                                }
+	                            }
+	                            catch (e) {
+	                                storage_1.keyValue.set(constants_1.keyApiBaseUrl, null);
+	                                logger_1.logAndRejectError("Error parse responce: " + e, reject);
+	                            }
+	                        }
+	                        else {
+	                            storage_1.keyValue.set(constants_1.keyApiBaseUrl, null);
+	                            logger_1.logAndRejectError("Error occurred, status code: " + xhr_1.status, reject);
+	                        }
+	                    };
+	                    xhr_1.onerror = function xhrOnError(e) {
+	                        logger_1.logAndRejectError("Pushwoosh response to " + methodName + " call in not ok: " + e, reject);
+	                    };
+	                    xhr_1.send(JSON.stringify(params));
+	                }
+	                catch (e) {
+	                    logger_1.logAndRejectError("Exception while " + methodName + " the device: " + e, reject);
+	                }
+	            });
+	        });
+	    };
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = createDoApiXHR;
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+	    return new (P || (P = Promise))(function (resolve, reject) {
+	        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+	        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+	        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+	        step((generator = generator.apply(thisArg, _arguments || [])).next());
+	    });
+	};
+	var __generator = (this && this.__generator) || function (thisArg, body) {
+	    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+	    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+	    function verb(n) { return function (v) { return step([n, v]); }; }
+	    function step(op) {
+	        if (f) throw new TypeError("Generator is already executing.");
+	        while (_) try {
+	            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+	            if (y = 0, t) op = [0, t.value];
+	            switch (op[0]) {
+	                case 0: case 1: t = op; break;
+	                case 4: _.label++; return { value: op[1], done: false };
+	                case 5: _.label++; y = op[1]; op = [0]; continue;
+	                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+	                default:
+	                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+	                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+	                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+	                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+	                    if (t[2]) _.ops.pop();
+	                    _.trys.pop(); continue;
+	            }
+	            op = body.call(thisArg, _);
+	        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+	        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+	    }
+	};
+	var Pushwoosh_1 = __webpack_require__(4);
+	var functions_1 = __webpack_require__(1);
+	var SafariDriver = (function () {
+	    function SafariDriver(params) {
+	        this.params = params;
+	    }
+	    SafariDriver.prototype.getPermissionObject = function () {
+	        return safari.pushNotification.permission(this.params.webSitePushID);
+	    };
+	    SafariDriver.prototype.getPermission = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var permission;
+	            return __generator(this, function (_a) {
+	                permission = this.getPermissionObject().permission;
+	                return [2 /*return*/, permission === 'default' ? 'prompt' : permission];
+	            });
+	        });
+	    };
+	    SafariDriver.prototype.isSubscribed = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var perm;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, this.getPermission()];
+	                    case 1:
+	                        perm = _a.sent();
+	                        return [2 /*return*/, perm === 'granted'];
+	                }
+	            });
+	        });
+	    };
+	    SafariDriver.prototype.askSubscribe = function () {
+	        var _a = this.params || {}, _b = _a.eventEmitter, eventEmitter = _b === void 0 ? { emit: function (e) { return e; } } : _b, _c = _a.applicationCode, applicationCode = _c === void 0 ? '' : _c, _d = _a.webSitePushID, webSitePushID = _d === void 0 ? '' : _d, _e = _a.pushwooshApiUrl, pushwooshApiUrl = _e === void 0 ? '' : _e;
+	        return new Promise(function (resolve, reject) {
+	            // @TODO: remove second parameter when base_url bug will be fixed by backend
+	            functions_1.getPushwooshUrl(applicationCode, true, pushwooshApiUrl).then(function (pushwooshUrl) {
+	                safari.pushNotification.requestPermission(pushwooshUrl + "safari", webSitePushID, { application: applicationCode }, function (permission) {
+	                    if (permission.permission === 'granted') {
+	                        eventEmitter.emit(Pushwoosh_1.eventOnPermissionGranted);
+	                        resolve(true);
+	                    }
+	                    else {
+	                        eventEmitter.emit(Pushwoosh_1.eventOnPermissionDenied);
+	                        reject(false);
+	                    }
+	                });
+	            });
+	        });
+	    };
+	    SafariDriver.prototype.unsubscribe = function () {
+	        return new Promise(function (resolve) { return resolve(true); });
+	    };
+	    SafariDriver.prototype.getAPIParams = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _a, deviceToken, hwid, pushToken;
+	            return __generator(this, function (_b) {
+	                _a = (this.getPermissionObject() || {}).deviceToken, deviceToken = _a === void 0 ? '' : _a;
+	                hwid = deviceToken && deviceToken.toLowerCase() || '';
+	                pushToken = deviceToken && deviceToken.toUpperCase() || '';
+	                return [2 /*return*/, { hwid: hwid, pushToken: pushToken }];
+	            });
+	        });
+	    };
+	    return SafariDriver;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = SafariDriver;
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+	    return new (P || (P = Promise))(function (resolve, reject) {
+	        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+	        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+	        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+	        step((generator = generator.apply(thisArg, _arguments || [])).next());
+	    });
+	};
+	var __generator = (this && this.__generator) || function (thisArg, body) {
+	    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+	    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+	    function verb(n) { return function (v) { return step([n, v]); }; }
+	    function step(op) {
+	        if (f) throw new TypeError("Generator is already executing.");
+	        while (_) try {
+	            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+	            if (y = 0, t) op = [0, t.value];
+	            switch (op[0]) {
+	                case 0: case 1: t = op; break;
+	                case 4: _.label++; return { value: op[1], done: false };
+	                case 5: _.label++; y = op[1]; op = [0]; continue;
+	                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+	                default:
+	                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+	                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+	                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+	                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+	                    if (t[2]) _.ops.pop();
+	                    _.trys.pop(); continue;
+	            }
+	            op = body.call(thisArg, _);
+	        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+	        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+	    }
+	};
+	var functions_1 = __webpack_require__(1);
+	var Pushwoosh_1 = __webpack_require__(4);
+	var constants_1 = __webpack_require__(2);
+	var storage_1 = __webpack_require__(3);
+	var WorkerDriver = (function () {
+	    function WorkerDriver(params) {
+	        this.params = params;
+	    }
+	    Object.defineProperty(WorkerDriver.prototype, "scope", {
+	        get: function () {
+	            var _a = (this.params || {}).scope, scope = _a === void 0 ? '/' : _a;
+	            if (typeof scope !== 'string') {
+	                throw new Error('invalid scope value');
+	            }
+	            if (scope.length > 1) {
+	                if (scope.substr(0, 1) !== '/')
+	                    scope = "/" + scope;
+	                if (scope.substr(scope.length - 1) !== '/')
+	                    scope = scope + "/";
+	            }
+	            return scope;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    WorkerDriver.prototype.initWorker = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var scope, serviceWorkerRegistration;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0:
+	                        scope = this.scope;
+	                        return [4 /*yield*/, navigator.serviceWorker.getRegistration()];
+	                    case 1:
+	                        serviceWorkerRegistration = _a.sent();
+	                        if (!(!serviceWorkerRegistration || serviceWorkerRegistration.installing == null)) return [3 /*break*/, 3];
+	                        return [4 /*yield*/, navigator.serviceWorker.register("" + scope + this.params.serviceWorkerUrl + "?version=" + functions_1.getVersion(), { scope: scope })];
+	                    case 2:
+	                        _a.sent();
+	                        _a.label = 3;
+	                    case 3: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    WorkerDriver.prototype.getPermission = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            return __generator(this, function (_a) {
+	                return [2 /*return*/, Notification.permission === 'default' ? 'prompt' : Notification.permission];
+	            });
+	        });
+	    };
+	    WorkerDriver.prototype.isSubscribed = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var serviceWorkerRegistration, subscription;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, navigator.serviceWorker.getRegistration()];
+	                    case 1:
+	                        serviceWorkerRegistration = _a.sent();
+	                        if (!serviceWorkerRegistration) {
+	                            return [2 /*return*/, false];
+	                        }
+	                        return [4 /*yield*/, serviceWorkerRegistration.pushManager.getSubscription()];
+	                    case 2:
+	                        subscription = _a.sent();
+	                        return [2 /*return*/, !!subscription];
+	                }
+	            });
+	        });
+	    };
+	    WorkerDriver.prototype.emit = function (event) {
+	        var _a = (this.params || {}).eventEmitter, eventEmitter = _a === void 0 ? { emit: function (e) { return e; } } : _a;
+	        eventEmitter.emit(event);
+	    };
+	    WorkerDriver.prototype.askSubscribe = function (registerLess) {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var serviceWorkerRegistration, subscription, options, e_1, e_2;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, navigator.serviceWorker.ready];
+	                    case 1:
+	                        serviceWorkerRegistration = _a.sent();
+	                        return [4 /*yield*/, serviceWorkerRegistration.pushManager.getSubscription()];
+	                    case 2:
+	                        subscription = _a.sent();
+	                        options = { userVisibleOnly: true };
+	                        if (functions_1.getBrowserType() == 11 && this.params.applicationServerPublicKey) {
+	                            options.applicationServerKey = functions_1.urlB64ToUint8Array(this.params.applicationServerPublicKey);
+	                        }
+	                        if (!!subscription) return [3 /*break*/, 7];
+	                        _a.label = 3;
+	                    case 3:
+	                        _a.trys.push([3, 5, , 6]);
+	                        return [4 /*yield*/, serviceWorkerRegistration.pushManager.subscribe(options)];
+	                    case 4:
+	                        subscription = _a.sent();
+	                        this.emit(Pushwoosh_1.eventOnPermissionGranted);
+	                        return [3 /*break*/, 6];
+	                    case 5:
+	                        e_1 = _a.sent();
+	                        this.emit(Pushwoosh_1.eventOnPermissionDenied);
+	                        return [3 /*break*/, 6];
+	                    case 6: return [3 /*break*/, 14];
+	                    case 7:
+	                        if (!(registerLess && subscription.unsubscribe)) return [3 /*break*/, 13];
+	                        return [4 /*yield*/, subscription.unsubscribe()];
+	                    case 8:
+	                        _a.sent();
+	                        _a.label = 9;
+	                    case 9:
+	                        _a.trys.push([9, 11, , 12]);
+	                        return [4 /*yield*/, serviceWorkerRegistration.pushManager.subscribe(options)];
+	                    case 10:
+	                        subscription = _a.sent();
+	                        this.emit(Pushwoosh_1.eventOnPermissionGranted);
+	                        return [3 /*break*/, 12];
+	                    case 11:
+	                        e_2 = _a.sent();
+	                        this.emit(Pushwoosh_1.eventOnPermissionDenied);
+	                        return [3 /*break*/, 12];
+	                    case 12: return [3 /*break*/, 14];
+	                    case 13:
+	                        this.emit(Pushwoosh_1.eventOnPermissionGranted);
+	                        _a.label = 14;
+	                    case 14: return [2 /*return*/, subscription];
+	                }
+	            });
+	        });
+	    };
+	    WorkerDriver.prototype.unsubscribe = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var serviceWorkerRegistration, subscription;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, navigator.serviceWorker.getRegistration()];
+	                    case 1:
+	                        serviceWorkerRegistration = _a.sent();
+	                        if (!serviceWorkerRegistration) {
+	                            return [2 /*return*/, Promise.resolve()];
+	                        }
+	                        return [4 /*yield*/, serviceWorkerRegistration.pushManager.getSubscription()];
+	                    case 2:
+	                        subscription = _a.sent();
+	                        if (subscription && subscription.unsubscribe) {
+	                            return [2 /*return*/, subscription.unsubscribe()];
+	                        }
+	                        else {
+	                            return [2 /*return*/, Promise.resolve(false)];
+	                        }
+	                        return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    WorkerDriver.prototype.getAPIParams = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var serviceWorkerRegistration, _a, savedApiParams, subscription, pushToken;
+	            return __generator(this, function (_b) {
+	                switch (_b.label) {
+	                    case 0: return [4 /*yield*/, navigator.serviceWorker.getRegistration()];
+	                    case 1:
+	                        serviceWorkerRegistration = _b.sent();
+	                        if (!!serviceWorkerRegistration) return [3 /*break*/, 3];
+	                        _a = constants_1.keyApiParams;
+	                        return [4 /*yield*/, storage_1.keyValue.getAll()];
+	                    case 2:
+	                        savedApiParams = (_b.sent())[_a];
+	                        if (savedApiParams && this.scope !== '/') {
+	                            return [2 /*return*/, savedApiParams];
+	                        }
+	                        else {
+	                            this.emit(Pushwoosh_1.eventOnSWInitError);
+	                            throw new Error('No service worker registration');
+	                        }
+	                        _b.label = 3;
+	                    case 3: return [4 /*yield*/, navigator.serviceWorker.ready];
+	                    case 4:
+	                        serviceWorkerRegistration = _b.sent();
+	                        return [4 /*yield*/, serviceWorkerRegistration.pushManager.getSubscription()];
+	                    case 5:
+	                        subscription = _b.sent();
+	                        pushToken = functions_1.getPushToken(subscription);
+	                        return [2 /*return*/, {
+	                                hwid: functions_1.generateHwid(this.params.applicationCode, pushToken),
+	                                pushToken: pushToken,
+	                                publicKey: functions_1.getPublicKey(subscription),
+	                                authToken: functions_1.getAuthToken(subscription),
+	                            }];
+	                }
+	            });
+	        });
+	    };
+	    return WorkerDriver;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = WorkerDriver;
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var logger_1 = __webpack_require__(5);
+	var functions_1 = __webpack_require__(1);
+	function createDoApiFetch(applicationCode, pushwooshApiUrl) {
+	    return function doApiFetch(methodName, request) {
+	        return new Promise(function (resolve, reject) {
+	            functions_1.getPushwooshUrl(applicationCode, false, pushwooshApiUrl).then(function (pushwooshUrl) {
+	                try {
+	                    var url = "" + pushwooshUrl + methodName;
+	                    var params = { request: request };
+	                    fetch(url, {
+	                        method: 'post',
+	                        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+	                        body: JSON.stringify(params)
+	                    }).then(function (response) {
+	                        if (!response.ok) {
+	                            logger_1.logAndRejectError(response.statusText || 'response not ok', reject);
+	                        }
+	                        else {
+	                            response.json().then(function (json) {
+	                                if (json.status_code != 200) {
+	                                    logger_1.logAndRejectError("Error occurred during the " + methodName + " call to Pushwoosh: " + json.status_message, reject);
+	                                }
+	                                else {
+	                                    logger_1.default.write('apirequest', methodName + " call with arguments: " + JSON.stringify(request) + " to Pushwoosh has been successful. Result: " + JSON.stringify(json.response), 'createDoApiFetch');
+	                                    resolve(json.response);
+	                                }
+	                            });
+	                        }
+	                    });
+	                }
+	                catch (e) {
+	                    logger_1.logAndRejectError("Exception while " + methodName + " the device: " + e, reject);
+	                }
+	            });
+	        });
+	    };
+	}
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = createDoApiFetch;
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+	    return new (P || (P = Promise))(function (resolve, reject) {
+	        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+	        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+	        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+	        step((generator = generator.apply(thisArg, _arguments || [])).next());
+	    });
+	};
+	var __generator = (this && this.__generator) || function (thisArg, body) {
+	    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+	    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+	    function verb(n) { return function (v) { return step([n, v]); }; }
+	    function step(op) {
+	        if (f) throw new TypeError("Generator is already executing.");
+	        while (_) try {
+	            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+	            if (y = 0, t) op = [0, t.value];
+	            switch (op[0]) {
+	                case 0: case 1: t = op; break;
+	                case 4: _.label++; return { value: op[1], done: false };
+	                case 5: _.label++; y = op[1]; op = [0]; continue;
+	                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+	                default:
+	                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+	                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+	                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+	                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+	                    if (t[2]) _.ops.pop();
+	                    _.trys.pop(); continue;
+	            }
+	            op = body.call(thisArg, _);
+	        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+	        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+	    }
+	};
+	var storage_1 = __webpack_require__(3);
+	var constants_1 = __webpack_require__(2);
+	var API_1 = __webpack_require__(6);
+	var createDoApiFetch_1 = __webpack_require__(11);
+	var WorkerPushwooshGlobal = (function () {
+	    function WorkerPushwooshGlobal() {
+	        this._listeners = {};
+	    }
+	    WorkerPushwooshGlobal.prototype.push = function (f) {
+	        if (Array.isArray(f) && f[0] === 'onPush' && typeof f[1] === 'function') {
+	            if (!this._listeners[f[0]]) {
+	                this._listeners[f[0]] = [];
+	            }
+	            this._listeners[f[0]].push(f[1]);
+	        }
+	    };
+	    WorkerPushwooshGlobal.prototype.getListeners = function (eventName) {
+	        return this._listeners[eventName] || [];
+	    };
+	    WorkerPushwooshGlobal.prototype.initApi = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var values, initParams, driverApiParams, lastOpenMessage, apiParams, func;
+	            return __generator(this, function (_a) {
+	                switch (_a.label) {
+	                    case 0: return [4 /*yield*/, storage_1.keyValue.getAll()];
+	                    case 1:
+	                        values = _a.sent();
+	                        initParams = values[constants_1.keyInitParams];
+	                        driverApiParams = values[constants_1.keyApiParams];
+	                        lastOpenMessage = values[constants_1.keyLastOpenMessage] || {};
+	                        apiParams = __assign({}, driverApiParams, { deviceType: initParams.deviceType, deviceModel: initParams.tags['Device Model'], applicationCode: initParams.applicationCode, language: initParams.tags.Language, pushwooshApiUrl: initParams.pushwooshApiUrl });
+	                        if (initParams.userId) {
+	                            apiParams.userId = initParams.userId;
+	                        }
+	                        func = createDoApiFetch_1.default(initParams.applicationCode, initParams.pushwooshApiUrl);
+	                        this.api = new API_1.default(func, apiParams, lastOpenMessage);
+	                        return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    return WorkerPushwooshGlobal;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = WorkerPushwooshGlobal;
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+	    return new (P || (P = Promise))(function (resolve, reject) {
+	        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+	        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+	        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+	        step((generator = generator.apply(thisArg, _arguments || [])).next());
+	    });
+	};
+	var __generator = (this && this.__generator) || function (thisArg, body) {
+	    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t;
+	    return { next: verb(0), "throw": verb(1), "return": verb(2) };
+	    function verb(n) { return function (v) { return step([n, v]); }; }
+	    function step(op) {
+	        if (f) throw new TypeError("Generator is already executing.");
+	        while (_) try {
+	            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+	            if (y = 0, t) op = [0, t.value];
+	            switch (op[0]) {
+	                case 0: case 1: t = op; break;
+	                case 4: _.label++; return { value: op[1], done: false };
+	                case 5: _.label++; y = op[1]; op = [0]; continue;
+	                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+	                default:
+	                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+	                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+	                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+	                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+	                    if (t[2]) _.ops.pop();
+	                    _.trys.pop(); continue;
+	            }
+	            op = body.call(thisArg, _);
+	        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+	        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+	    }
+	};
+	var functions_1 = __webpack_require__(1);
+	var PushwooshNotification = (function () {
+	    function PushwooshNotification(info) {
+	        this._canceled = false;
+	        this._origMess = info;
+	        this._changedMess = __assign({}, info);
+	    }
+	    Object.defineProperty(PushwooshNotification.prototype, "title", {
+	        get: function () {
+	            return this._changedMess.title;
+	        },
+	        set: function (title) {
+	            this._changedMess.title = title;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PushwooshNotification.prototype, "body", {
+	        get: function () {
+	            return this._changedMess.body;
+	        },
+	        set: function (body) {
+	            this._changedMess.body = body;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PushwooshNotification.prototype, "icon", {
+	        get: function () {
+	            return this._changedMess.icon;
+	        },
+	        set: function (icon) {
+	            this._changedMess.icon = icon;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PushwooshNotification.prototype, "openUrl", {
+	        get: function () {
+	            return this._changedMess.openUrl;
+	        },
+	        set: function (openUrl) {
+	            this._changedMess.openUrl = openUrl;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PushwooshNotification.prototype, "duration", {
+	        get: function () {
+	            return functions_1.prepareDuration(this._changedMess.duration);
+	        },
+	        set: function (duration) {
+	            this._changedMess.duration = duration;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(PushwooshNotification.prototype, "messageHash", {
+	        get: function () {
+	            return this._changedMess.messageHash;
+	        },
+	        set: function (messageHash) {
+	            this._changedMess.messageHash = messageHash;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    PushwooshNotification.prototype.show = function () {
+	        return __awaiter(this, void 0, void 0, function () {
+	            var _this = this;
+	            var code_1, _a, buttons, image, notifications;
+	            return __generator(this, function (_b) {
+	                switch (_b.label) {
+	                    case 0:
+	                        if (!!this._canceled) return [3 /*break*/, 3];
+	                        code_1 = "notificationCode-" + Date.now();
+	                        _a = this._changedMess, buttons = _a.buttons, image = _a.image;
+	                        buttons.forEach(function (button, key) {
+	                            button.action = "action-" + key;
+	                        });
+	                        return [4 /*yield*/, self.registration.showNotification(this.title, {
+	                                body: this.body,
+	                                icon: this.icon,
+	                                requireInteraction: this.duration === 0 || this.duration > 20,
+	                                tag: JSON.stringify({
+	                                    url: this.openUrl,
+	                                    messageHash: this.messageHash
+	                                }),
+	                                data: {
+	                                    code: code_1,
+	                                    buttons: buttons
+	                                },
+	                                actions: buttons,
+	                                image: image
+	                            })];
+	                    case 1:
+	                        _b.sent();
+	                        return [4 /*yield*/, self.registration.getNotifications()];
+	                    case 2:
+	                        notifications = _b.sent();
+	                        notifications.forEach(function (notification) {
+	                            if (notification.data && notification.data.code === code_1 && _this.duration) {
+	                                setTimeout(function () { return notification.close(); }, 1000 * _this.duration);
+	                            }
+	                        });
+	                        _b.label = 3;
+	                    case 3: return [2 /*return*/];
+	                }
+	            });
+	        });
+	    };
+	    PushwooshNotification.prototype.cancel = function () {
+	        this._canceled = true;
+	    };
+	    PushwooshNotification.prototype._forLog = function () {
+	        return {
+	            orig: this._origMess,
+	            changed: this._changedMess,
+	            canceled: this._canceled,
+	        };
+	    };
+	    return PushwooshNotification;
+	}());
+	Object.defineProperty(exports, "__esModule", { value: true });
+	exports.default = PushwooshNotification;
+
+
+/***/ }
+/******/ ]);
+//# sourceMappingURL=pushwoosh-service-worker.uncompress.js.map
