@@ -1,11 +1,7 @@
 {
-  "name": "Example",
-  "short_name": "Example",
-  "start_url": "/",
-  "display": "standalone",
-
-  "gcm_user_visible_only": true,
+  "name": "Pushwoosh Demo",
+  "short_name": "Pushwoosh Demo",
   "gcm_sender_id": "732110682735",
-  "PW_gcm_sender_id": "732110682735",
-  "OS_gcm_sender_id": "482941778795"
+  "display": "standalone",
+  "gcm_user_visible_only": true
 }
