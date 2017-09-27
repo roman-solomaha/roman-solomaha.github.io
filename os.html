@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- <script type="text/javascript" src="//cdn.pushwoosh.com/webpush/v3/pushwoosh-web-notifications.js" async></script> -->
+
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
+
+  <script>
+    var OneSignal = window.OneSignal || [];
+    OneSignal.push(["init", {
+      appId: "f57ef71b-5bb6-4167-868d-700bdc203d40",
+      autoRegister: true,
+      notifyButton: {
+        enable: true
+      }
+    }]);
+  </script>
+
+  <script type="text/javascript">
+    var Pushwoosh = Pushwoosh || [];
+    Pushwoosh.push(['init', {
+        logLevel: 'error', // possible values: error, info, debug
+        applicationCode: '4A0B6-CBED7', // you application code from Pushwoosh Control Panel
+        safariWebsitePushID: 'web.com.example.domain', //  unique reverse-domain string, obtained in you Apple Developer Portal
+        defaultNotificationTitle: 'Pushwoosh', // sets a default title for push notifications
+        defaultNotificationImage: 'https://yoursite.com/img/logo-medium.png', // URL to custom custom notification image
+        autoSubscribe: true, // or false. If true, promts a user to subscribe for pushes upon SDK initialization
+        userId: 'userId', // optional, set custom user ID
+        tags: {
+            'Name': 'John Smith'    // optional, set custom Tags
+        }
+    }]);
+
+    Pushwoosh.push(['onReady', function() {
+      console.log('onReady', this);
+    }]);
+    Pushwoosh.push(['onSubscribe', function() {
+      console.log('onSubscribe', this);
+    }]);
+    Pushwoosh.push(['onUnsubscribe', function() {
+      console.log('onUnsubscribe', this);
+    }]);
+    Pushwoosh.push(['onRegister', function() {
+      console.log('onRegister', this);
+    }]);
+    Pushwoosh.push(['onPermissionPrompt', function() {
+      console.log('onPermissionPrompt', this);
+    }]);
+    Pushwoosh.push(['onPermissionDenied', function() {
+      console.log('onPermissionDenied', this);
+    }]);
+    Pushwoosh.push(['onPermissionGranted', function() {
+      console.log('onPermissionGranted', this);
+    }]);
+    Pushwoosh.push(['onSWInitError', function() {
+      console.log('onSWInitError', this);
+    }]);
+    Pushwoosh.push(['onPushDelivery', function() {
+      console.log('onPushDelivery', this);
+    }]);
+    Pushwoosh.push(['onNotificationClick', function() {
+      console.log('onNotificationClick', this);
+    }]);
+    Pushwoosh.push(['onNotificationClose', function() {
+      console.log('onNotificationClose', this);
+    }]);
+  </script>
+</head>
+<body>
+</body>
+</html>
