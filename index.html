@@ -43,10 +43,8 @@ var Pushwoosh = Pushwoosh || [];
 
 <script>
 	function subscribe() {
-		Pushwoosh.push(function(api) {
-      console.log(1);
 	  		// Post an Event
-	  		api.postEvent('Just Subscribed', {});
+	  		Pushwoosh.api.postEvent('Just Subscribed', {});
 		});
 	}
 
