@@ -1,0 +1,1 @@
+importScripts('https://cdn.pushwoosh.com/webpush/pushwoosh-lp-service-worker.js');
