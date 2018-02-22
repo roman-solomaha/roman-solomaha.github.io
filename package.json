@@ -1,6 +1,6 @@
 {
   "name": "ramano-pkg",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "description": "Pushwoosh web push notifications",
   "main": "lib/index.js",
   "scripts": {
