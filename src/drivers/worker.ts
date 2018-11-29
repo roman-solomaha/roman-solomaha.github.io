@@ -12,16 +12,21 @@ import {
   PERMISSION_PROMPT,
   PERMISSION_DENIED,
   PERMISSION_GRANTED,
-  keyDBSenderID,
-  keyApiParams,
-  keyFcmSubscription
+  KEY_SENDER_ID,
+  KEY_API_PARAMS,
+  KEY_FCM_SUBSCRIPTION,
+  KEY_DEVICE_DATA_REMOVED,
+  EVENT_ON_SW_INIT_ERROR,
+  EVENT_ON_PERMISSION_DENIED,
+  EVENT_ON_PERMISSION_GRANTED,
+  DEFAULT_SERVICE_WORKER_URL,
 } from '../constants';
-import {eventOnSWInitError, eventOnPermissionDenied, eventOnPermissionGranted} from "../Pushwoosh";
-import {keyValue} from "../storage";
+import {keyValue} from '../storage';
+import Logger from '../logger';
 
 
 declare const Notification: {
-  permission: typeof PERMISSION_GRANTED | typeof PERMISSION_DENIED | typeof PERMISSION_PROMPT
+  permission: typeof PERMISSION_DENIED | typeof PERMISSION_GRANTED | typeof PERMISSION_PROMPT
 };
 
 type WindowExtended = Window & {Notification: any}
@@ -30,27 +35,15 @@ type WindowExtended = Window & {Notification: any}
 class WorkerDriver implements IPWDriver {
   constructor(private params: TWorkerDriverParams) {}
 
-  get scope() {
-    let {scope = '/', serviceWorkerUrl = null} = this.params || {};
-    if (typeof scope !== 'string') {
-      throw new Error('invalid scope value');
-    }
-    if (scope.length > 1 && serviceWorkerUrl === null) {
-      if (scope.substr(0, 1) !== '/')
-        scope = `/${scope}`;
-      if (scope.substr(scope.length - 1) !== '/')
-        scope = `${scope}/`;
-    }
-    return scope;
-  }
-
   async initWorker() {
-    const scope = this.scope;
-    const {serviceWorkerUrl, serviceWorkerUrlDeprecated} = this.params;
-    const scriptUrl = serviceWorkerUrl === null
-        ? `${scope}${serviceWorkerUrlDeprecated}?version=${getVersion()}`
-        : `${serviceWorkerUrl}?version=${getVersion()}`;
-    await navigator.serviceWorker.register(scriptUrl, {scope});
+    const {serviceWorkerUrl, scope} = this.params;
+
+    const options = scope ? {scope} : undefined;
+    const url = serviceWorkerUrl === null
+      ? `/${DEFAULT_SERVICE_WORKER_URL}?version=${getVersion()}`
+      : `${serviceWorkerUrl}?version=${getVersion()}`;
+
+    await navigator.serviceWorker.register(url, options);
   }
 
   async getPermission() {
@@ -71,12 +64,18 @@ class WorkerDriver implements IPWDriver {
     eventEmitter.emit(event);
   }
 
-  async askSubscribe(registerLess?:boolean) {
+  async askSubscribe(isDeviceRegistered?:boolean) {
     const serviceWorkerRegistration = await navigator.serviceWorker.ready;
-    let subscription = await serviceWorkerRegistration.pushManager.getSubscription();
+    const subscription = await serviceWorkerRegistration.pushManager.getSubscription();
 
-    if (subscription && subscription.unsubscribe && registerLess) {
+    if (subscription && subscription.unsubscribe && isDeviceRegistered) {
       await subscription.unsubscribe();
+    }
+
+    const dataIsRemoved = await keyValue.get(KEY_DEVICE_DATA_REMOVED);
+    if (dataIsRemoved) {
+      Logger.write('error', 'Device data has been removed');
+      return;
     }
 
     const permission = await (window as WindowExtended).Notification.requestPermission();
@@ -84,32 +83,42 @@ class WorkerDriver implements IPWDriver {
       return await this.subscribe(serviceWorkerRegistration);
     }
     else if (permission === PERMISSION_DENIED) {
-      this.emit(eventOnPermissionDenied);
+      this.emit(EVENT_ON_PERMISSION_DENIED);
     }
     return subscription;
   }
 
   private async subscribe(registration: ServiceWorkerRegistration) {
+    const dataIsRemoved = await keyValue.get(KEY_DEVICE_DATA_REMOVED);
+    if (dataIsRemoved) {
+      Logger.write('error', 'Device data has been removed');
+      return;
+    }
+
     const options: any = {userVisibleOnly: true};
     if (getBrowserType() == 11 && this.params.applicationServerPublicKey) {
       options.applicationServerKey = urlB64ToUint8Array(this.params.applicationServerPublicKey);
     }
     const subscription = await registration.pushManager.subscribe(options);
-    this.emit(eventOnPermissionGranted);
+    this.emit(EVENT_ON_PERMISSION_GRANTED);
     await this.getFCMToken();
     return subscription;
   }
 
-  async unsubscribe() {
+  /**
+   * Unsubscribe device
+   * @returns {Promise<boolean>}
+   */
+  async unsubscribe(): Promise<boolean> {
     const serviceWorkerRegistration = await navigator.serviceWorker.getRegistration();
     if (!serviceWorkerRegistration) {
-      return Promise.resolve();
+      return false;
     }
     const subscription = await serviceWorkerRegistration.pushManager.getSubscription();
     if (subscription && subscription.unsubscribe) {
       return subscription.unsubscribe();
     } else {
-      return Promise.resolve(false);
+      return false;
     }
   }
 
@@ -117,13 +126,13 @@ class WorkerDriver implements IPWDriver {
     let serviceWorkerRegistration = await navigator.serviceWorker.getRegistration();
     if (!serviceWorkerRegistration) {
       const {
-        [keyApiParams]: savedApiParams
+        [KEY_API_PARAMS]: savedApiParams
       } = await keyValue.getAll();
-      if (savedApiParams && this.scope !== '/') {
+      if (savedApiParams) {
         return savedApiParams;
       }
       else {
-        this.emit(eventOnSWInitError);
+        this.emit(EVENT_ON_SW_INIT_ERROR);
         throw new Error('No service worker registration');
       }
     }
@@ -134,8 +143,8 @@ class WorkerDriver implements IPWDriver {
     const pushToken = getPushToken(subscription);
 
     return {
+      pushToken,
       hwid: generateHwid(this.params.applicationCode, pushToken),
-      pushToken: pushToken,
       publicKey: getPublicKey(subscription),
       authToken: getAuthToken(subscription),
       fcmPushSet: await getFcmKey(subscription, 'pushSet'),
@@ -149,8 +158,12 @@ class WorkerDriver implements IPWDriver {
    */
   async getFCMToken() {
     const serviceWorkerRegistration = await navigator.serviceWorker.getRegistration();
-    const subscription = await serviceWorkerRegistration.pushManager.getSubscription();
-    const senderID = await keyValue.get(keyDBSenderID);
+
+    let subscription = null;
+    if (serviceWorkerRegistration) {
+      subscription = await serviceWorkerRegistration.pushManager.getSubscription();
+    }
+    const senderID = await keyValue.get(KEY_SENDER_ID);
     const fcmURL = 'https://fcm.googleapis.com/fcm/connect/subscribe';
 
     if (!senderID) {
@@ -159,7 +172,7 @@ class WorkerDriver implements IPWDriver {
     }
 
     const body = {
-      endpoint: subscription.endpoint,
+      endpoint: subscription ? subscription.endpoint : '',
       encryption_key: getPublicKey(subscription), //p256
       encryption_auth: getAuthToken(subscription), //auth
       authorized_entity: senderID,
@@ -179,7 +192,7 @@ class WorkerDriver implements IPWDriver {
     if (response.status === 200) {
       try {
         const subscription = await response.json();
-        await keyValue.set(keyFcmSubscription, {
+        await keyValue.set(KEY_FCM_SUBSCRIPTION, {
           token: subscription.token || '',
           pushSet: subscription.pushSet || ''
         });
@@ -210,7 +223,7 @@ class WorkerDriver implements IPWDriver {
    * @returns {Promise<boolean>}
    */
   async checkFCMKeys() {
-    const {pushSet = '', token = ''} = await keyValue.get(keyFcmSubscription) || {};
+    const {pushSet = '', token = ''} = await keyValue.get(KEY_FCM_SUBSCRIPTION) || {};
     return !!(pushSet && token);
   }
 
@@ -222,7 +235,8 @@ class WorkerDriver implements IPWDriver {
     const manifest = document.querySelector('link[rel="manifest"]');
 
     if (manifest === null) {
-      throw new Error('Link to manifest can not find');
+      Logger.write('error', 'Link to manifest can not find');
+      return false;
     }
     const manifestUrl = manifest.getAttribute('href') || '';
 
@@ -249,10 +263,10 @@ class WorkerDriver implements IPWDriver {
         manifestSenderID = match[4];
       }
 
-      const senderId = await keyValue.get(keyDBSenderID);
+      const senderId = await keyValue.get(KEY_SENDER_ID);
 
       if (manifestSenderID && senderId !== manifestSenderID) {
-        await keyValue.set(keyDBSenderID, manifestSenderID);
+        await keyValue.set(KEY_SENDER_ID, manifestSenderID);
         return false;
       }
 

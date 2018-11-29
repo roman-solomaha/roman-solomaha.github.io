@@ -1,26 +1,80 @@
-import {keyDeviceRegistrationStatus, keyInitParams} from "./constants";
-import {isSafariBrowser, validateParams} from "./functions";
-import {keyValue} from "./storage";
+import {
+  DEVICE_REGISTRATION_STATUS_REGISTERED,
+  DEVICE_REGISTRATION_STATUS_UNREGISTERED,
+  KEY_DEVICE_REGISTRATION_STATUS,
+  KEY_INIT_PARAMS,
+  KEY_API_PARAMS,
+  KEY_COMMUNICATION_ENABLED,
+  KEY_DEVICE_DATA_REMOVED
+} from './constants';
+import {
+  getVersion,
+  isSafariBrowser,
+  validateParams,
+  sendInternalPostEvent
+} from './functions';
+import {keyValue} from './storage';
+import Logger, {logAndThrowError} from './logger';
+
 
 export default class PushwooshAPI {
   private timezone: number = -(new Date).getTimezoneOffset() * 60;
 
-  constructor(private doPushwooshApiMethod: TDoPushwooshMethod, public params: TPWAPIParams, public lastOpenMessage: TPWLastOpenMessage) {}
+  constructor(private doPushwooshApiMethod: TDoPushwooshMethod, private apiParams: TPWAPIParams, public lastOpenMessage: TPWLastOpenMessage) {}
+
+  // TODO will be deprecated in next minor version
+  public get params() {
+    console.error('Property "Pushwoosh.api.params" will be deprecated in next minor version. Instead, use the async method "Pushwoosh.api.getParams()"');
+
+    sendInternalPostEvent({
+      hwid: this.apiParams.hwid,
+      userId: this.apiParams.userId,
+      device_type: this.apiParams.deviceType,
+      event: 'API Params',
+      attributes: {
+        'app_code': this.apiParams.applicationCode,
+        'device_type': this.apiParams.deviceType,
+        'url': `${this.apiParams.applicationCode} - ${location ? location.href : 'none'}`
+      }
+    });
+
+    return this.apiParams;
+  }
 
   get isSafari() {
     return isSafariBrowser();
   }
 
-  callAPI(methodName: string, methodParams?: any) {
-    const {hwid = '', applicationCode = '', userId = ''} = this.params || {};
+  async getParams() {
+    const {
+      [KEY_API_PARAMS]: apiParams,
+      [KEY_INIT_PARAMS]: initParams,
+    } = await keyValue.getAll();
+
+    return {...apiParams, ...initParams};
+  }
+
+  async callAPI(methodName: string, methodParams?: any) {
+    const params: IPWParams = await this.getParams();
+
+    // can't call any api methods if device data is removed
+    const dataIsRemoved = await keyValue.get(KEY_DEVICE_DATA_REMOVED);
+    if (dataIsRemoved) {
+      Logger.write('error', 'Device data has been removed');
+      return;
+    }
+
+    const {hwid = '', applicationCode = '', userId = ''} = params;
     if (this.isSafari && !hwid) {
-      return Promise.resolve();
+      return;
     }
     const customUserId = methodParams && methodParams.userId;
     const mustBeParams: any = {
-      application: applicationCode,
       hwid,
-      userId: customUserId || userId || hwid
+      application: applicationCode,
+      userId: customUserId || userId || hwid,
+      device_type: params.deviceType,
+      v: getVersion()
     };
     return this.doPushwooshApiMethod(methodName, {
       ...methodParams,
@@ -28,71 +82,74 @@ export default class PushwooshAPI {
     });
   }
 
-  registerDevice() {
-    const {params} = this;
+  async registerDevice() {
+    const params: IPWParams = await this.getParams();
 
     if (!params.pushToken || this.isSafari) {
-      return Promise.resolve();
+      return;
     }
 
-    return new Promise((resolve, reject) => {
-      this.callAPI('registerDevice', {
-        push_token: params.pushToken,
-        public_key: params.publicKey,
-        auth_token: params.authToken,
-        fcm_token: params.fcmToken,
-        fcm_push_set: params.fcmPushSet,
-        language: params.language,
-        timezone: this.timezone,
-        device_model: params.deviceModel,
-        device_type: params.deviceType,
-      })
-        .then(() => {
-          localStorage.setItem(keyDeviceRegistrationStatus, 'registered');
-          resolve();
-        })
-        .catch(reject);
-    });
+    try {
+      const isCommunicationEnabled = await keyValue.get(KEY_COMMUNICATION_ENABLED) !== 0;
+
+      if (!isCommunicationEnabled) {
+        Logger.write('error', 'Communication is disabled');
+        return;
+      }
+
+      await this.callAPI('registerDevice', {
+          push_token: params.pushToken,
+          public_key: params.publicKey,
+          auth_token: params.authToken,
+          fcm_token: params.fcmToken,
+          fcm_push_set: params.fcmPushSet,
+          language: params.tags.Language,
+          timezone: this.timezone,
+          device_model: params.tags['Device Model']
+      });
+      localStorage.setItem(KEY_DEVICE_REGISTRATION_STATUS, DEVICE_REGISTRATION_STATUS_REGISTERED);
+    }
+    catch (error) {
+      logAndThrowError(error);
+    }
   }
 
-  unregisterDevice() {
+  async unregisterDevice() {
     if (this.isSafari) {
-      return Promise.resolve();
+      return;
     }
 
-    return new Promise((resolve, reject) => {
-      this.callAPI('unregisterDevice')
-        .then(() => {
-          localStorage.setItem(keyDeviceRegistrationStatus, '');
-          resolve();
-        })
-        .catch(reject);
-    });
+    try {
+      await this.callAPI('unregisterDevice');
+      localStorage.setItem(KEY_DEVICE_REGISTRATION_STATUS, DEVICE_REGISTRATION_STATUS_UNREGISTERED);
+    }
+    catch (error) {
+      logAndThrowError(error);
+    }
   }
 
   async registerUser(userId?: string) {
-    const params: any = {
+    const params: IPWParams = await this.getParams();
+
+    if (!params.userId && !userId) {
+      return;
+    }
+
+    const methodParams = {
       timezone: this.timezone,
-      device_type: this.params.deviceType,
-      userId: this.params.userId,
+      userId: userId || params.userId,
     };
-    if (userId) {
-      params.userId = userId;
-      await keyValue.extend(keyInitParams, validateParams(params));
-    }
-    if (!params.userId) {
-      return Promise.resolve();
-    }
-    return this.callAPI('registerUser', params);
+
+    await keyValue.extend(KEY_INIT_PARAMS, validateParams(methodParams));
+
+    this.callAPI('registerUser', methodParams);
   }
 
-  applicationOpen() {
-    return new Promise((resolve: () => void, reject) => {
-      this.callAPI('applicationOpen', {
-        push_token: this.params.pushToken,
-        device_type: this.params.deviceType,
-        timezone: this.timezone,
-      }).then(resolve).catch(reject);
+  async applicationOpen() {
+    const params: IPWParams = await this.getParams();
+    this.callAPI('applicationOpen', {
+      push_token: params.pushToken,
+      timezone: this.timezone,
     });
   }
 
@@ -131,7 +188,6 @@ export default class PushwooshAPI {
     }
 
     return this.callAPI('postEvent', {
-      device_type: this.params.deviceType,
       event,
       attributes,
       timestampUTC,
