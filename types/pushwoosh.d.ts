@@ -26,7 +26,7 @@ interface TPWAPIParams extends IPWDriverAPIParams {
 
 interface TPWLastOpenMessage {
   messageHash?: string,
-  expiry?: number,
+  expiry: number,
   url?: string
 }
 
@@ -36,6 +36,7 @@ interface PushManager {
 
 interface PushSubscription {
   unsubscribe(): Promise<boolean>;
+  subscriptionId: string
 }
 
 interface IPWDriver {
@@ -51,6 +52,7 @@ interface IPWDriver {
 
 interface ServiceWorkerRegistration {
   showNotification(a: any, b: any): Promise<any>;
+  readonly periodicSync: SyncManager;
 }
 
 interface ITooltipText {
@@ -111,6 +113,38 @@ interface IInitParamsWithDefaults extends IInitParams {
   subscribeWidget: ISubscribeWidget;
 }
 
+interface IPWParams extends IInitParamsWithDefaults {
+  applicationCode: string;
+  defaultNotificationImage?: string;
+  defaultNotificationTitle?: string;
+  logLevel?: 'error' | 'info' | 'debug';
+  pushwooshApiUrl?: string;
+  safariWebsitePushID?: string;
+  scope?: string;
+  userId?: string;
+  pushwooshUrl: string;
+  authToken?: string;
+  fcmPushSet?: string;
+  fcmToken?: string;
+  hwid?: string;
+  publicKey?: string;
+  pushToken?: string;
+}
+
+interface INotificationOptions extends ServiceWorkerNotificationOptions {
+  title: string,
+  messageHash: string,
+  duration: number,
+  openUrl: string,
+  url?: string,
+
+  image?: string,
+  code?: string,
+  buttons?: TNotificationButton[],
+  customData?: {[key: string]: any},
+  campaignCode?: string
+}
+
 type TPWCanWaitCallback = (f: any) => Promise<any> | any;
 
 interface IWorkerPushwooshGlobal {
@@ -124,26 +158,10 @@ interface Window {
   Pushwoosh: IWorkerPushwooshGlobal;
 }
 
-interface SubscribeMethodParams {
-  cancelApiReInit?: boolean;
-}
-
 interface IPWBroadcastClientsParams {
   type: string;
   payload: any;
 }
-
-type TMessageInfo = {
-  title: string;
-  body: string;
-  icon: string;
-  openUrl: string;
-  messageHash: string;
-  customData?: any;
-  duration?: any;
-  buttons?: any;
-  image?: string;
-};
 
 interface IEevetTargetWithResult extends EventTarget {
   result: IDBDatabase;
@@ -163,12 +181,13 @@ interface ILogger {
 
 type ListenerFn = (...args: Array<any>) => void | Promise<any>;
 
+type HandlerFn = (api: any, params?: any) => any;
+
 type TWorkerDriverParams = {
   eventEmitter?: any,
   scope?: string,
   applicationCode: string,
   serviceWorkerUrl: string | null,
-  serviceWorkerUrlDeprecated?: string,
   applicationServerPublicKey?: string,
 };
 
@@ -180,7 +199,7 @@ type TWorkerSafariDriverParams = {
   pushwooshApiUrl?: string
 };
 
-type NotificationButton = {
+type TNotificationButton = {
   title: string,
   action: string,
   url: string
@@ -188,10 +207,18 @@ type NotificationButton = {
 
 type TServiceWorkerClientExtended = ServiceWorkerClient & {
   focus: () => void
-}
+};
 
 type TDoPushwooshMethod = (type: string, params: any) => Promise<any>;
 
+type PWInput = PushOnReadyCallback | PushInitCallback | PushEventCallback;
+type PushOnReadyCallback = HandlerFn;
+type PushInitCallback = ['init', IInitParams];
+type PushEventCallback = [PWEvent, HandlerFn];
+type PWEvent = 'onReady' | 'onSubscribe' | 'onUnsubscribe' | 'onRegister' | 'onSWInitError'
+  | 'onPermissionPrompt' | 'onPermissionDenied' | 'onPermissionGranted'
+  | 'onNotificationClick' | 'onPushDelivery' | 'onNotificationClose'
+  | 'onChangeCommunicationEnabled';
+
 declare const __VERSION__: string;
 declare const __API_URL__: string;
-declare const caches: Cache;

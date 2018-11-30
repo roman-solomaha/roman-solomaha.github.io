@@ -1,12 +1,18 @@
-import {keyValue} from "./storage";
+import {keyValue} from './storage';
 import {
-  keyApiBaseUrl,
-  keyFakePushToken,
-  keyFcmSubscription,
+  KEY_API_BASE_URL,
+  KEY_FAKE_PUSH_TOKEN,
+  KEY_FCM_SUBSCRIPTION,
   BROWSER_TYPE_CHROME,
   BROWSER_TYPE_FF,
-  BROWSER_TYPE_SAFARI
-} from "./constants";
+  BROWSER_TYPE_SAFARI,
+  BROWSER_TYPE_EDGE,
+  KEY_INTERNAL_EVENTS,
+  DEFAULT_NOTIFICATION_DURATION,
+  MAX_NOTIFICATION_DURATION
+} from './constants';
+
+type TPushSubscription = PushSubscription | null;
 
 export function getGlobal() {
   return Function('return this')();
@@ -25,15 +31,28 @@ export function isOperaBrowser(): boolean {
   return navigator.userAgent.indexOf('Opera') !== -1 || navigator.userAgent.indexOf('OPR') !== -1;
 }
 
+export function isEdgeBrowser(): boolean {
+  return navigator.userAgent.indexOf('Edge') > -1;
+}
+
 export function canUseServiceWorkers() {
   return navigator.serviceWorker && 'PushManager' in window && 'Notification' in window;
 }
 
-type TBrowserType = typeof BROWSER_TYPE_SAFARI | typeof BROWSER_TYPE_CHROME | typeof BROWSER_TYPE_FF;
+export function isSupportSDK() {
+  return (isSafariBrowser() && getDeviceName() === 'PC') || canUseServiceWorkers();
+}
+
+type TBrowserType = typeof BROWSER_TYPE_SAFARI | typeof BROWSER_TYPE_CHROME | typeof BROWSER_TYPE_FF | typeof BROWSER_TYPE_EDGE;
 export function getBrowserType(): TBrowserType {
   if (isSafariBrowser()) {
     return BROWSER_TYPE_SAFARI;
   }
+
+  if (isEdgeBrowser()) {
+    return BROWSER_TYPE_EDGE;
+  }
+
   return ~navigator.userAgent.toLowerCase().indexOf('firefox')
     ? BROWSER_TYPE_FF
     : BROWSER_TYPE_CHROME;
@@ -50,9 +69,14 @@ export function getBrowserVersion() {
   }
 
   if (match[1] === 'Chrome') {
-    version = userAgent.match(/\bOPR\/(\d+)/);
-    if (version !== null) {
-      return `Opera ${version[1]}`;
+    const operaVersion = userAgent.match(/\bOPR\/(\d+)/);
+    if (operaVersion !== null) {
+      return `Opera ${operaVersion[1]}`;
+    }
+
+    const edgeVersion = userAgent.match(/\bEdge\/(\d+)/);
+    if (edgeVersion !== null) {
+      return `Edge ${edgeVersion[1]}`;
     }
   }
 
@@ -116,12 +140,12 @@ export function generateHwid(applicationCode: string, pushToken: string) {
 }
 
 export function getFakePushToken() {
-  return localStorage.getItem(keyFakePushToken);
+  return localStorage.getItem(KEY_FAKE_PUSH_TOKEN);
 }
 
 export function generateFakePushToken() {
   const token = generateToken();
-  localStorage.setItem(keyFakePushToken, token);
+  localStorage.setItem(KEY_FAKE_PUSH_TOKEN, token);
   return token;
 }
 
@@ -135,7 +159,7 @@ function generateToken(len?: number) {
   return text;
 }
 
-export function getPushToken(pushSubscription: PushSubscription) {
+export function getPushToken(pushSubscription: TPushSubscription) {
   if (!pushSubscription) {
     return '';
   }
@@ -148,16 +172,16 @@ export function getPushToken(pushSubscription: PushSubscription) {
     return pushSubscription.endpoint;
   }
 
-  return pushSubscription.endpoint.split('/').pop();
+  return pushSubscription.endpoint.split('/').pop() || '';
 }
 
-export function getFcmKey(pushSubscription: PushSubscription, key: string): Promise<string> {
+export function getFcmKey(pushSubscription: TPushSubscription, key: string): Promise<string> {
   if (!pushSubscription) {
     return Promise.resolve('');
   }
 
   return new Promise((resolve => {
-    keyValue.get(keyFcmSubscription)
+    keyValue.get(KEY_FCM_SUBSCRIPTION)
       .then((fcmSubscription: any) => {
         resolve(fcmSubscription && fcmSubscription[key] || '')
       })
@@ -167,20 +191,20 @@ export function getFcmKey(pushSubscription: PushSubscription, key: string): Prom
   }))
 }
 
-function getSubsKey(pushSubscription: any, key: any): string {
+function getSubsKey(pushSubscription: TPushSubscription, key: PushEncryptionKeyName): string {
   const rawKey = pushSubscription && pushSubscription.getKey && pushSubscription.getKey(key);
   return rawKey ? btoa(String.fromCharCode.apply(String, new Uint8Array(rawKey))) : '';
 }
 
-export function getAuthToken(pushSubscription: PushSubscription) {
+export function getAuthToken(pushSubscription: TPushSubscription) {
   return getSubsKey(pushSubscription, 'auth');
 }
 
-export function getPublicKey(pushSubscription: PushSubscription) {
+export function getPublicKey(pushSubscription: TPushSubscription) {
   return getSubsKey(pushSubscription, 'p256dh');
 }
 
-export function getPushwooshUrl(applicationCode: string, ignoreBaseUrl?: boolean, pushwooshApiUrl?: string) {
+export function getPushwooshUrl(applicationCode: string, pushwooshApiUrl?: string) {
   let subDomain = 'cp';
   if (!isSafariBrowser() && applicationCode && !~applicationCode.indexOf('.')) {
     subDomain = `${applicationCode}.api`;
@@ -188,10 +212,7 @@ export function getPushwooshUrl(applicationCode: string, ignoreBaseUrl?: boolean
   const url = `https://${pushwooshApiUrl || __API_URL__ || subDomain + '.pushwoosh.com'}/json/1.3/`;
 
   return new Promise<any>(resolve => {
-    if (ignoreBaseUrl) {
-      resolve(url);
-    }
-    keyValue.get(keyApiBaseUrl)
+    keyValue.get(KEY_API_BASE_URL)
       .then((base_url = null) => {
         resolve(base_url || url);
       })
@@ -224,12 +245,17 @@ export function patchConsole() {
 
 export function patchPromise() {
   const global = getGlobal();
-  if (!('Promise' in global)) {
+  if (!canUsePromise() && isSupportSDK()) {
     global.Promise = () => ({
       then: () => {},
       catch: () => {}
     });
   }
+}
+
+export function canUsePromise() {
+  const global = getGlobal();
+  return 'Promise' in global;
 }
 
 export function clearLocationHash() {
@@ -244,10 +270,10 @@ export function clearLocationHash() {
 
 export function prepareDuration(duration: any) {
   if (isNaN(duration)) {
-    return 20;
+    return DEFAULT_NOTIFICATION_DURATION;
   }
   duration = Math.round(duration);
-  return Math.min(60, duration < 0 ? 20 : duration);
+  return Math.min(MAX_NOTIFICATION_DURATION, duration < 0 ? DEFAULT_NOTIFICATION_DURATION : duration);
 }
 
 export function validateParams(params: any) {
@@ -256,4 +282,33 @@ export function validateParams(params: any) {
     delete result.userId;
   }
   return result;
+}
+
+export function sendInternalPostEvent(params: any) {
+  keyValue.get(KEY_INTERNAL_EVENTS)
+    .then((events: {[key: string]: number} = {}) => {
+      if (Object.keys(events).length === 0) {
+        keyValue.set(KEY_INTERNAL_EVENTS, {});
+      }
+
+      const currentDate = new Date().setHours(0, 0, 0, 0);
+      const dateFromStore = events[params.event];
+
+      if (!dateFromStore || currentDate > dateFromStore) {
+        keyValue.extend(KEY_INTERNAL_EVENTS, {
+          [params.event]: currentDate
+        });
+
+        const xhr = new XMLHttpRequest();
+        const url = 'https://cp.pushwoosh.com/json/1.3/postEvent';
+        const request = {
+          application: 'DD275-06947',
+          ...params
+        };
+
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'text/plain;charset=UTF-8');
+        xhr.send(JSON.stringify({request}));
+      }
+    });
 }
