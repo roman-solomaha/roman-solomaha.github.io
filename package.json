@@ -1,11 +1,11 @@
 {
   "name": "ramano-pkg",
-  "version": "3.2.28",
+  "version": "3.2.29",
   "description": "Pushwoosh web push notifications",
-  "main": "publish/index.js",
-  "types": "publish/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
-    "prepare": "cross-env NODE_ENV=production webpack --config webpack.publish.config.js",
+    "prepare": "cross-env NODE_ENV=production webpack --config webpack.lib.config.js",
     "build": "webpack",
     "build:prod": "cross-env GUI_CONFIG_PRESET_NAME=production NODE_ENV=production webpack",
     "zip": "node scripts/zip.js",
@@ -20,7 +20,7 @@
     "url": "git+https://github.com/Pushwoosh/web-push-notifications.git"
   },
   "files": [
-    "publish"
+    "lib"
   ],
   "keywords": [
     "pushwoosh",
@@ -81,9 +81,9 @@
       "**/assets/**",
       "testRegister.js",
       "webpack.config.js",
-      "webpack.publish.config.js",
+      "webpack.lib.config.js",
       "dist/",
-      "publish/",
+      "lib/",
       "develop/",
       "scripts/"
     ],
