@@ -386,9 +386,9 @@ class Pushwoosh {
 
       await this.driver.askSubscribe(this.isDeviceRegistered());
 
-      if (!this.isDeviceRegistered()) {
-        await this.registerDuringSubscribe();
-      }
+      // always re-register device, because push credentials(pushToken, fcmToken, fcmPushSet) always updated
+      await this.registerDuringSubscribe();
+
       if (!subscribed) {
         await this.onSubscribeEmitter();
       }
